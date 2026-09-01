@@ -1,458 +1,541 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DigitalDropX — Premium Digital Products</title>
-  <meta name="description" content="Premium digital products, templates, and guides for entrepreneurs." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Outfit', sans-serif; background: #050508; color: #fff; overflow-x: hidden; }
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    .content { position: relative; z-index: 1; }
-    
-    /* Hero */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; position: relative; }
-    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(transparent, #050508); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); padding: 12px 28px; border-radius: 100px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 48px; backdrop-filter: blur(20px); }
-    .hero-badge span { color: #c9a96e; }
-    .hero h1 { font-size: 96px; font-weight: 100; letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 32px; max-width: 900px; }
-    .hero h1 em { font-style: normal; font-weight: 600; background: linear-gradient(135deg, #c9a96e 0%, #f5efe6 50%, #c9a96e 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
-    @keyframes shimmer { to { background-position: 200% center; } }
-    .hero p { font-size: 18px; color: rgba(255,255,255,0.4); max-width: 560px; line-height: 1.9; margin-bottom: 56px; font-weight: 300; }
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-    .hero-cta { display: inline-flex; align-items: center; gap: 14px; background: #fff; color: #050508; padding: 20px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
-    .hero-cta:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 60px rgba(255,255,255,0.15); }
-    .hero-cta-outline { display: inline-flex; align-items: center; gap: 14px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 20px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
-    .hero-cta-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
-    .scroll-indicator { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
-    .scroll-line { width: 1px; height: 60px; background: linear-gradient(rgba(255,255,255,0.3), transparent); animation: scrollPulse 2s infinite; }
-    @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-    
-    /* Stats */
-    .stats { padding: 100px 40px; }
-    .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    .stat-item { text-align: center; }
-    .stat-number { font-size: 56px; font-weight: 100; color: #c9a96e; margin-bottom: 8px; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; }
-    
-    /* Section Shared */
-    .section-label { font-size: 10px; color: #c9a96e; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; text-align: center; }
-    .section-title { font-size: 64px; font-weight: 100; text-align: center; margin-bottom: 100px; letter-spacing: -0.03em; }
-    .section-title strong { font-weight: 600; }
-    
-    /* Products */
-    .products { padding: 140px 40px; max-width: 1500px; margin: 0 auto; }
-    .product-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 2px; background: rgba(255,255,255,0.01); border-radius: 32px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; }
-    .product-row:hover { border-color: rgba(201, 169, 110, 0.15); transform: translateY(-8px); box-shadow: 0 40px 80px rgba(0,0,0,0.4); }
-    .product-row.reverse { direction: rtl; }
-    .product-row.reverse > * { direction: ltr; }
-    .product-img { height: 520px; overflow: hidden; position: relative; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1); filter: brightness(0.8); }
-    .product-row:hover .product-img img { transform: scale(1.06); filter: brightness(1); }
-    .product-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.3), transparent); }
-    .product-info { padding: 72px; display: flex; flex-direction: column; justify-content: center; }
-    .product-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; }
-    .product-info h2 { font-size: 44px; font-weight: 200; margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.15; }
-    .product-info h2 strong { font-weight: 600; }
-    .product-info .desc { font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 36px; font-weight: 300; }
-    .product-price { font-size: 36px; font-weight: 200; color: #c9a96e; margin-bottom: 40px; }
-    .product-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-    .product-btn { display: inline-flex; align-items: center; gap: 12px; background: #fff; color: #050508; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.4s; }
-    .product-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,255,255,0.15); }
-    .product-btn-outline { display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.4s; }
-    .product-btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
-    
-    /* Features */
-    .features { padding: 160px 40px; }
-    .features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; padding: 48px; transition: all 0.4s; }
-    .feature-card:hover { border-color: rgba(201, 169, 110, 0.15); transform: translateY(-8px); }
-    .feature-icon { width: 56px; height: 56px; background: rgba(201, 169, 110, 0.08); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; }
-    .feature-icon svg { width: 24px; height: 24px; stroke: #c9a96e; }
-    .feature-card h3 { font-size: 20px; font-weight: 400; margin-bottom: 14px; }
-    .feature-card p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.8; font-weight: 300; }
-    
-    /* Testimonials */
-    .testimonials { padding: 160px 40px; }
-    .testimonials-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .testimonial-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; padding: 48px; }
-    .testimonial-stars { color: #c9a96e; font-size: 14px; margin-bottom: 24px; letter-spacing: 4px; }
-    .testimonial-card p { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.9; margin-bottom: 32px; font-weight: 300; font-style: italic; }
-    .testimonial-author { display: flex; align-items: center; gap: 16px; }
-    .testimonial-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(201, 169, 110, 0.3); }
-    .testimonial-name { font-size: 15px; font-weight: 500; }
-    .testimonial-role { font-size: 13px; color: rgba(255,255,255,0.35); }
-    
-    /* CTA */
-    .cta { padding: 200px 40px; text-align: center; }
-    .cta h2 { font-size: 72px; font-weight: 100; margin-bottom: 24px; letter-spacing: -0.03em; }
-    .cta h2 strong { font-weight: 600; }
-    .cta p { font-size: 18px; color: rgba(255,255,255,0.35); margin-bottom: 56px; font-weight: 300; }
-    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .cta-btn { display: inline-flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #050508; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; box-shadow: 0 12px 48px rgba(201, 169, 110, 0.25); }
-    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(201, 169, 110, 0.35); }
-    .cta-btn-outline { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(201, 169, 110, 0.3); color: #c9a96e; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
-    .cta-btn-outline:hover { background: rgba(201, 169, 110, 0.08); }
-    
-    /* Footer */
-    .footer { padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.04); }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .footer-brand { font-size: 20px; font-weight: 200; }
-    .footer-brand strong { font-weight: 600; }
-    .footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
-    .footer a { color: #c9a96e; text-decoration: none; }
-    
-    /* Detail */
-    .detail { display: none; position: fixed; inset: 0; background: rgba(5,5,8,0.98); z-index: 1000; overflow-y: auto; backdrop-filter: blur(30px); }
-    .detail.active { display: block; }
-    .detail-close { position: fixed; top: 40px; right: 40px; width: 60px; height: 60px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; color: #fff; font-size: 22px; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
-    .detail-close:hover { background: rgba(255,255,255,0.08); transform: rotate(90deg); }
-    .detail-hero { height: 60vh; min-height: 400px; overflow: hidden; position: relative; }
-    .detail-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
-    .detail-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 300px; background: linear-gradient(transparent, #050508); }
-    .detail-body { max-width: 860px; margin: -140px auto 0; padding: 0 40px 140px; position: relative; }
-    .detail-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; }
-    .detail-body h1 { font-size: 64px; font-weight: 100; margin-bottom: 24px; letter-spacing: -0.03em; }
-    .detail-body .price { font-size: 48px; color: #c9a96e; font-weight: 200; margin-bottom: 40px; }
-    .detail-body .desc { font-size: 18px; color: rgba(255,255,255,0.5); line-height: 2; margin-bottom: 56px; font-weight: 300; }
-    .detail-features { margin-bottom: 56px; }
-    .detail-features h3 { font-size: 11px; font-weight: 500; margin-bottom: 32px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-    .feature-row { display: flex; align-items: center; gap: 20px; padding: 22px 32px; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; margin-bottom: 12px; transition: all 0.3s; }
-    .feature-row:hover { background: rgba(201, 169, 110, 0.03); border-color: rgba(201, 169, 110, 0.08); }
-    .feature-dot { width: 8px; height: 8px; background: #c9a96e; border-radius: 50%; flex-shrink: 0; }
-    .feature-row span { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; }
-    .detail-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-    .detail-buy { display: inline-flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #050508; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; box-shadow: 0 12px 48px rgba(201, 169, 110, 0.25); }
-    .detail-buy:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(201, 169, 110, 0.35); }
-    .detail-back { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; cursor: pointer; background: transparent; }
-    .detail-back:hover { background: rgba(255,255,255,0.05); }
-    
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 48px; }
-      .product-row { grid-template-columns: 1fr; }
-      .product-row.reverse { direction: ltr; }
-      .product-img { height: 320px; }
-      .product-info { padding: 48px; }
-      .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .section-title, .cta h2 { font-size: 40px; }
-      .detail-body h1 { font-size: 40px; }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DigitalDropX — Premium Digital Products</title>
+<meta name="description" content="Premium digital products, templates, and guides for entrepreneurs." />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#080a14;--ink:#eef1f8;--muted:#a6aec4;--accent:#c9a96e;--gold:#d4af37;--ok:#34d399}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow-x:hidden;background:var(--bg)}
+  body{font-family:"Quicksand",-apple-system,sans-serif;color:var(--ink)}
+  .atmo{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+      radial-gradient(1100px 700px at 12% 28%,rgba(201,169,110,.12),transparent 62%),
+      radial-gradient(900px 620px at 76% 70%,rgba(212,175,55,.07),transparent 60%),
+      radial-gradient(1500px 900px at 50% 118%,rgba(201,169,110,.14),transparent 58%)}
+  .ghost{position:fixed;left:50%;top:71%;transform:translate(-50%,-50%);z-index:0;
+    font-size:10.5vw;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.03);user-select:none;white-space:nowrap}
+  canvas#world{position:fixed;inset:0;z-index:1;display:block}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+      radial-gradient(135% 105% at 50% 42%,transparent 58%,rgba(8,10,20,.6) 100%)}
+  #ui{position:fixed;inset:0;z-index:2;pointer-events:none}
+  #ui a,#ui button{pointer-events:auto}
+  .px{position:absolute;inset:0;pointer-events:none}
+  .enter{opacity:0;translate:0 16px;transition:opacity .7s ease,translate .7s ease}
+  body.ready .enter{opacity:1;translate:0 0}
+  body.ready .d1{transition-delay:.04s}.d2{transition-delay:.14s}
+  body.ready .d3{transition-delay:.26s}.d4{transition-delay:.38s}.d5{transition-delay:.5s}
+  body.still .enter{transition:none;opacity:1;translate:0 0}
+  body.still .art.reveal::after{display:none}
+  body.settled .enter{transition-delay:0s}
+  body.still .cta::before,body.still .demo .ring{animation:none}
+  :root{--e:cubic-bezier(.22,1,.36,1)}
+
+  nav{position:absolute;top:26px;left:50%;margin-left:-320px;display:flex;align-items:center;gap:3px;
+      background:rgba(17,20,32,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:5px;pointer-events:auto}
+  nav .logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#c9a96e,#d4af37);
+      display:grid;place-items:center;font-size:16px;font-weight:700;color:#080a14;
+      box-shadow:0 4px 12px rgba(5,8,20,.4);transition:transform .3s var(--e)}
+  nav .logo:hover{transform:rotate(-6deg) scale(1.05)}
+  nav a{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--muted);text-decoration:none;padding:10px 15px;border-radius:999px;font-weight:600;
+      border:1px solid transparent;transition:color .3s var(--e),background .3s var(--e),border-color .3s var(--e),
+                 transform .3s var(--e),box-shadow .3s var(--e)}
+  nav a:hover{color:var(--ink);transform:translateY(-1px);
+      background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03));
+      border-color:rgba(255,255,255,.14);box-shadow:0 6px 16px rgba(5,8,20,.4),inset 0 1px 0 rgba(255,255,255,.12)}
+  nav::after{content:"";position:absolute;inset:0;border-radius:999px;opacity:0;pointer-events:none;
+      transition:opacity .35s var(--e);background:radial-gradient(90px 46px at var(--mx,50%) var(--my,0%),rgba(255,255,255,.12),transparent 70%)}
+  nav:hover::after{opacity:1}
+  nav a{position:relative;overflow:hidden}
+  nav a::after{content:"";position:absolute;inset:0;border-radius:999px;opacity:0;pointer-events:none;
+      transition:opacity .3s var(--e);background:radial-gradient(64px 36px at var(--mx,50%) var(--my,30%),rgba(255,255,255,.2),transparent 72%)}
+  nav a:hover::after{opacity:1}
+  nav a.active::after{display:none}
+  nav a.active{background:#eef1f8;color:#1d2233;box-shadow:0 4px 14px rgba(5,8,20,.45)}
+  nav a.go{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 45%),linear-gradient(135deg,#c9a96e,#d4af37);
+      color:#080a14;box-shadow:0 4px 16px rgba(201,169,110,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+  nav a.go:hover{transform:translateY(-1px);border-color:transparent;
+      box-shadow:0 7px 22px rgba(201,169,100,.6),inset 0 1px 0 rgba(255,255,255,.3)}
+
+  .hero{position:absolute;left:5.5%;top:20%;max-width:680px}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+      color:#c3cadd;font-weight:600}
+  .badge i{width:7px;height:7px;border-radius:99px;background:var(--ok);box-shadow:0 0 12px var(--ok)}
+  h1{font-weight:600;font-size:clamp(42px,5vw,72px);line-height:1.1;letter-spacing:.01em;margin-top:14px}
+  h1 .hl{background:linear-gradient(100deg,#c9a96e,#f5efe6,#d4af37);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{position:absolute;left:5.5%;top:42%;max-width:520px;font-size:16px;line-height:1.8;color:#c3cadd;
+      text-shadow:0 1px 10px rgba(8,10,22,.8)}
+  .sub b{color:var(--ink);font-weight:600}
+  .ctarow{position:absolute;left:5.5%;top:56%;display:flex;align-items:center;gap:20px}
+  .cta{display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden;
+      background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 42%),linear-gradient(135deg,#c9a96e,#d4af37);
+      border:none;color:#080a14;font:600 15.5px/1 "Quicksand";padding:18px 36px;border-radius:999px;cursor:pointer;
+      box-shadow:0 14px 44px rgba(201,169,110,.5),0 2px 10px rgba(5,8,20,.4),inset 0 1px 0 rgba(255,255,255,.25);
+      transition:opacity .7s ease,translate .7s ease,transform .45s var(--e),box-shadow .45s var(--e);pointer-events:auto}
+  .cta>*{position:relative;z-index:2}
+  .cta::before{content:"";position:absolute;top:-60%;bottom:-60%;left:-45%;width:42%;z-index:1;rotate:14deg;
+      background:linear-gradient(105deg,transparent 18%,rgba(255,255,255,.55) 50%,transparent 82%);
+      filter:blur(5px);animation:sheen 5.5s var(--e) infinite}
+  @keyframes sheen{0%,55%{left:-45%}85%,100%{left:115%}}
+  .cta::after{content:"";position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .35s var(--e);
+      background:radial-gradient(140px 74px at var(--mx,50%) var(--my,20%),rgba(255,255,255,.3),transparent 65%),
+        radial-gradient(115% 95% at 50% 132%,rgba(212,175,55,.55),rgba(212,175,55,0) 58%)}
+  .cta:hover{transform:translateY(-2px);
+      box-shadow:0 20px 58px rgba(201,169,110,.7),0 14px 38px -8px rgba(212,175,55,.55),0 2px 10px rgba(5,8,20,.4),
+                 inset 0 1px 0 rgba(255,255,255,.35),inset 0 -12px 26px -14px rgba(212,175,55,.5)}
+  .cta:hover::after{opacity:1}
+  .cta:active{transform:translateY(0) scale(.97)}
+  .cta .arrow{color:#3d2e0a}
+  @media(prefers-reduced-motion:reduce){.cta::before,.demo .ring{animation:none}}
+  .demo{display:inline-flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;pointer-events:auto;
+      color:var(--ink);font:600 13px/1.3 "Quicksand";text-align:left}
+  .demo .ring{position:relative;width:52px;height:52px;border-radius:999px;flex:none;
+      border:1px solid rgba(201,169,110,.55);display:grid;place-items:center;
+      background:linear-gradient(180deg,rgba(201,169,110,.08),rgba(212,175,55,.22) 62%,rgba(201,169,110,.38));
+      backdrop-filter:blur(7px);box-shadow:0 0 22px rgba(201,169,110,.4),inset 0 1px 0 rgba(255,255,255,.15),
+                 inset 0 -9px 18px -6px rgba(212,175,55,.45);animation:ringpulse 2.4s ease-in-out infinite;transition:transform .2s}
+  .demo:hover .ring{transform:scale(1.06)}
+  @keyframes ringpulse{50%{box-shadow:0 0 40px rgba(201,169,110,.8)}}
+  .demo .ring::before{content:"";position:absolute;inset:-12px;border-radius:999px;border:1px solid rgba(201,169,110,.22)}
+  .demo .ring svg{margin-left:3px}
+  .demo small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:2px}
+
+  .cardpos{position:absolute;transition:translate .5s var(--e)}
+  .cardpos:hover{translate:0 -6px}
+  #cardpos1{right:22%;top:22%}
+  #cardpos2{right:5%;top:44%}
+  .card{position:relative;background:#fbfcfe;color:#0f172a;border-radius:22px;padding:9px;width:260px;
+      box-shadow:0 26px 60px rgba(5,8,18,.5);pointer-events:auto;
+      transition:opacity .7s ease,translate .7s ease,rotate .5s var(--e),box-shadow .5s var(--e)}
+  .cardpos:hover .card{rotate:0deg;box-shadow:0 34px 78px rgba(5,8,18,.6)}
+  #cardpos1 .card{rotate:-1.4deg}
+  #cardpos2 .card{rotate:1.2deg}
+  .card .art{border-radius:15px;height:130px;position:relative;overflow:hidden}
+  .card .art.reveal::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(21,25,40,.94) 0%,rgba(21,25,40,.94) 49.6%,#c9a96e 50%,transparent 50.4%,transparent 100%);
+      background-size:100% 220%;background-position:0 0;animation:scan 1s 1.55s cubic-bezier(.6,.05,.3,1) forwards}
+  #cardpos2 .art.reveal::after{animation-delay:1.8s}
+  @keyframes scan{to{background-position:0 -120%}}
+  .card .body{padding:12px 10px 10px}
+  .card .kicker{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#64748b;font-weight:700}
+  .card .claim{font-size:19px;font-weight:600;line-height:1.25;margin-top:4px;letter-spacing:-.01em}
+  .card .go2{position:absolute;right:14px;bottom:14px;width:34px;height:34px;border-radius:999px;background:#eef1f8;
+      border:none;display:grid;place-items:center;cursor:pointer;font-size:13px;color:#0f172a;
+      transition:transform .4s var(--e),background .3s var(--e),color .3s var(--e)}
+  .card .go2:hover{background:#0f172a;color:#eef1f8;transform:scale(1.12) rotate(8deg)}
+  .livedot{position:absolute;top:10px;left:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(9,12,24,.6);
+      color:#e2e8f0;font-size:9.5px;font-weight:700;letter-spacing:.09em;padding:4px 9px;border-radius:99px}
+  .livedot i{width:6px;height:6px;border-radius:99px;background:var(--ok);animation:blink 1.6s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .bubble{position:absolute;left:12px;right:12px;bottom:10px;background:rgba(255,255,255,.93);border-radius:11px;
+      padding:8px 10px;font-size:10.5px;line-height:1.45;color:#334155}
+  .bubble b{color:#0f172a}
+  .booked{display:flex;align-items:center;gap:9px;margin-top:9px;background:#ecfdf5;border-radius:11px;padding:8px 10px;
+      font-size:11.5px;color:#065f46;font-weight:600}
+  .booked .tick{width:20px;height:20px;border-radius:99px;background:#10b981;color:#fff;display:grid;place-items:center;font-size:11px;flex:none}
+
+  .chip{position:absolute;color:#c3cadd;line-height:1.4;
+      background:rgba(17,20,32,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:12px 18px 13px 42px}
+  .chip span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+  .chip b{display:block;color:#fff;font-size:22px;font-weight:600;margin-top:2px;letter-spacing:-.01em}
+  .chip::before{content:"✦";position:absolute;left:16px;top:14px;opacity:.7;font-size:14px;color:#c9a96e}
+  #chip1{right:7%;top:22%}
+  #chip2{right:4%;top:34%}
+  .discover{position:absolute;right:2%;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;
+    font-size:10px;letter-spacing:.55em;color:rgba(255,255,255,.25);text-transform:uppercase}
+  .foot{position:absolute;left:5.5%;top:68%;display:flex;gap:22px;font-size:13px;font-weight:500;
+      color:#aab3cc;text-shadow:0 1px 10px rgba(8,10,22,.9)}
+  .foot i{color:var(--ok);font-style:normal;margin-right:7px;font-size:12px}
+
+  @media(max-width:1380px)and(min-width:741px){
+    .sub{max-width:400px}.card{width:224px}.card .art{height:110px}
+    #chip1{right:4%;top:10%}#chip2{right:4%;top:calc(10% + 78px)}
+    #cardpos1{right:4%;top:28%}#cardpos2{right:5%;top:58%}
+  }
+  @media(max-width:740px){
+    nav{left:4%;right:4%;margin-left:0;justify-content:space-between}
+    nav a:not(.go){display:none}nav .logo{width:40px;height:40px}
+    .hero{left:6%;right:6%;top:12%;max-width:none}
+    .badge{font-size:10px;letter-spacing:.1em}
+    h1{font-size:clamp(36px,11vw,48px)}
+    .sub{left:6%;right:6%;top:32%;max-width:none;font-size:14px;line-height:1.7}
+    .ctarow{left:6%;right:6%;top:50%;flex-direction:column;align-items:stretch;gap:15px}
+    .cta{justify-content:center}
+    .foot{left:6%;right:auto;top:72%;flex-direction:column;gap:8px;font-size:12px}
+    .chip,.discover,#cardpos1{display:none}
+    #cardpos2{right:-24px;top:auto;bottom:-34px}
+    #cardpos2 .card{width:212px;rotate:4deg}
+    #cardpos2 .card .art{height:96px}
+    .ghost{font-size:24vw;top:64%}
+  }
+
+  .scroll-section{position:relative;z-index:2;padding:120px 40px;max-width:1400px;margin:0 auto}
+  .section-label{font-size:11px;color:var(--accent);letter-spacing:.3em;text-transform:uppercase;margin-bottom:20px;text-align:center}
+  .section-title{font-size:clamp(36px,4vw,60px);font-weight:600;text-align:center;margin-bottom:80px;letter-spacing:-.02em}
+  .section-title strong{font-weight:700}
+  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .product-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:24px;overflow:hidden;
+      transition:all .5s var(--e);cursor:pointer}
+  .product-card:hover{border-color:rgba(201,169,110,.2);transform:translateY(-12px);box-shadow:0 40px 80px rgba(0,0,0,.4)}
+  .product-card .img{height:240px;overflow:hidden;position:relative}
+  .product-card .img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--e);filter:brightness(.8)}
+  .product-card:hover .img img{transform:scale(1.08);filter:brightness(1)}
+  .product-card .img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(8,10,20,.8))}
+  .product-card .info{padding:28px}
+  .product-card .tag{font-size:10px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+  .product-card h3{font-size:22px;font-weight:600;margin-bottom:8px}
+  .product-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+  .product-card .price{font-size:28px;font-weight:600;color:var(--accent);margin-bottom:20px}
+  .product-card .buy{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#c9a96e,#d4af37);
+      color:#080a14;padding:12px 28px;border-radius:999px;text-decoration:none;font-size:11px;font-weight:700;
+      letter-spacing:.1em;text-transform:uppercase;transition:all .4s var(--e)}
+  .product-card .buy:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,169,110,.4)}
+
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .feature-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:24px;padding:40px;
+      transition:all .4s var(--e)}
+  .feature-card:hover{border-color:rgba(201,169,110,.15);transform:translateY(-8px)}
+  .feature-icon{width:52px;height:52px;background:rgba(201,169,110,.08);border-radius:14px;display:flex;align-items:center;
+      justify-content:center;margin-bottom:24px;font-size:24px}
+  .feature-card h3{font-size:18px;font-weight:600;margin-bottom:12px}
+  .feature-card p{font-size:14px;color:var(--muted);line-height:1.7}
+
+  .cta-section{padding:160px 40px;text-align:center;position:relative;z-index:2}
+  .cta-section h2{font-size:clamp(40px,5vw,68px);font-weight:600;margin-bottom:20px;letter-spacing:-.02em}
+  .cta-section h2 strong{font-weight:700}
+  .cta-section p{font-size:18px;color:var(--muted);margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
+  .cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+  .footer{padding:60px 40px;border-top:1px solid rgba(255,255,255,.04);position:relative;z-index:2}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  .footer-brand{font-size:20px;font-weight:600}
+  .footer p{font-size:12px;color:rgba(255,255,255,.25)}
+
+  @media(max-width:900px){
+    .products-grid,.features-grid{grid-template-columns:1fr}
+    .section-title{font-size:36px}
+    .cta-section h2{font-size:36px}
+  }
+</style>
 </head>
 <body>
-  <canvas id="bg-canvas"></canvas>
-  
-  <div class="content">
-    <section class="hero">
-      <div class="hero-badge">✦ <span>DigitalDropX</span></div>
-      <h1>Premium digital products for <em>modern creators</em></h1>
-      <p>Professional templates, guides, and tools designed to help entrepreneurs launch faster, look better, and convert more visitors into customers. No subscriptions. No fluff. Just results that matter.</p>
-      <div class="hero-buttons">
-        <a href="#products" class="hero-cta">Explore Collection →</a>
-        <a href="#features" class="hero-cta-outline">Learn More</a>
-      </div>
-      <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-        Scroll
-      </div>
-    </section>
-    
-    <section class="stats">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number">2,500+</div>
-          <div class="stat-label">Happy Customers</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">Products Sold</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">4.9</div>
-          <div class="stat-label">Average Rating</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Instant Download</div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="products" id="products">
-      <div class="section-label">Collection</div>
-      <h2 class="section-title">Built for <strong>entrepreneurs</strong></h2>
-      
-      <div class="product-row" onclick="openDetail('dashboard')">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=600&fit=crop" alt="Analytics Dashboard">
-        </div>
-        <div class="product-info">
-          <div class="product-tag">Dashboard</div>
-          <h2><strong>Analytics</strong> Dashboard</h2>
-          <p class="desc">Track your business metrics with KPI cards, interactive charts, and real-time data visualization. Perfect for making data-driven decisions that grow your business. Includes dark and light mode, responsive design, and complete documentation.</p>
-          <div class="product-price">$29</div>
-          <div class="product-buttons">
-            <span class="product-btn">View Details →</span>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="product-row reverse" onclick="openDetail('seo')">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop" alt="SEO Blueprint">
-        </div>
-        <div class="product-info">
-          <div class="product-tag">Guide</div>
-          <h2><strong>SEO</strong> Blueprint</h2>
-          <p class="desc">Step-by-step guide to ranking #1 on Google. Keyword research, on-page optimization, and link building strategies that actually work. Real case studies, actionable checklists, and templates you can use immediately.</p>
-          <div class="product-price">$39</div>
-          <div class="product-buttons">
-            <span class="product-btn">View Details →</span>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="product-row" onclick="openDetail('prompt')">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&h=600&fit=crop" alt="AI Prompt Mastery">
-        </div>
-        <div class="product-info">
-          <div class="product-tag">AI Guide</div>
-          <h2><strong>AI Prompt</strong> Mastery</h2>
-          <p class="desc">Master AI prompting. 150+ pages, 50+ templates for ChatGPT, Claude, and Midjourney. Write prompts that produce professional results every time. Perfect for creators, marketers, and professionals.</p>
-          <div class="product-price">$29</div>
-          <div class="product-buttons">
-            <span class="product-btn">View Details →</span>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="features" id="features">
-      <div class="section-label">Why DigitalDropX</div>
-      <h2 class="section-title">Designed to <strong>convert</strong></h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-          <h3>Instant Download</h3>
-          <p>Get your templates immediately after purchase. No waiting, no delays. Start building right away and see results in minutes.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Professional Quality</h3>
-          <p>Crafted by designers, optimized for results. Every pixel is intentional and every feature serves a purpose.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-          <h3>Easy Customization</h3>
-          <p>Change colors, text, images in minutes. No coding required. Designed for non-technical users who want professional results.</p>
-        </div>
-      </div>
-    </section>
-    
-    <section class="testimonials">
-      <div class="section-label">Reviews</div>
-      <h2 class="section-title">Loved by <strong>entrepreneurs</strong></h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-          <p>"These templates saved me weeks of work. The quality is exceptional and the designs are truly professional. Worth every penny."</p>
-          <div class="testimonial-author">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Sarah" class="testimonial-avatar">
-            <div>
-              <div class="testimonial-name">Sarah Chen</div>
-              <div class="testimonial-role">Marketing Director</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-          <p>"The SEO blueprint helped me rank #1 for my target keyword in just 3 months. The step-by-step approach made it easy to follow."</p>
-          <div class="testimonial-author">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Marcus" class="testimonial-avatar">
-            <div>
-              <div class="testimonial-name">Marcus Johnson</div>
-              <div class="testimonial-role">Founder, TechStart</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="cta">
-      <h2>Ready to <strong>elevate</strong>?</h2>
-      <p>Join 2,500+ entrepreneurs who trust DigitalDropX.</p>
-      <div class="cta-buttons">
-        <a href="#products" class="cta-btn">Explore Products →</a>
-        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="cta-btn-outline">Visit Store</a>
-      </div>
-    </section>
-    
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">Digital<strong>DropX</strong></div>
-        <p>© 2026 DigitalDropX. All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
-  
-  <!-- Dashboard Detail -->
-  <div class="detail" id="detail-dashboard">
-    <button class="detail-close" onclick="closeDetail('dashboard')">✕</button>
-    <div class="detail-hero"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&h=700&fit=crop" alt="Analytics Dashboard"></div>
-    <div class="detail-body">
-      <div class="detail-tag">Dashboard Template</div>
-      <h1>Analytics Dashboard</h1>
-      <div class="price">$29 <span style="font-size:18px;color:rgba(255,255,255,0.25);text-decoration:line-through;margin-left:16px;font-weight:300">$49</span></div>
-      <p class="desc">Professional analytics dashboard template designed for modern businesses. Track your KPIs, visualize data with interactive charts, and make data-driven decisions that grow your business. Fully responsive, easy to customize, and ready to deploy in minutes. Includes dark and light mode, real-time data visualization, and complete documentation.</p>
-      <div class="detail-features">
-        <h3>What's Included</h3>
-        <div class="feature-row"><div class="feature-dot"></div><span>Responsive dashboard layout with mobile support</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Interactive charts and graphs with real-time data</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>KPI cards with live metrics tracking</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Dark and light mode toggle</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Fully customizable components and colors</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Complete documentation and setup guide</span></div>
-      </div>
-      <div class="detail-buttons">
-        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
-        <button class="detail-back" onclick="closeDetail('dashboard')">Back to Products</button>
+  <div class="atmo"></div>
+  <div class="ghost">DIGITALDROPX</div>
+  <canvas id="world"></canvas>
+  <div class="vignette"></div>
+
+  <div id="ui">
+    <nav>
+      <div class="logo">D</div>
+      <a href="#" class="active">Home</a>
+      <a href="#products">Products</a>
+      <a href="#features">Features</a>
+      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="go">Buy Now</a>
+    </nav>
+
+    <div class="px" data-px="0.012">
+      <div class="hero enter d1">
+        <div class="badge"><i></i> DIGITALDROPX</div>
+        <h1>Premium digital products for <span class="hl">modern creators</span></h1>
       </div>
     </div>
-  </div>
-  
-  <!-- SEO Detail -->
-  <div class="detail" id="detail-seo">
-    <button class="detail-close" onclick="closeDetail('seo')">✕</button>
-    <div class="detail-hero"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=700&fit=crop" alt="SEO Blueprint"></div>
-    <div class="detail-body">
-      <div class="detail-tag">SEO Guide</div>
-      <h1>SEO Blueprint</h1>
-      <div class="price">$39 <span style="font-size:18px;color:rgba(255,255,255,0.25);text-decoration:line-through;margin-left:16px;font-weight:300">$59</span></div>
-      <p class="desc">The complete roadmap to ranking #1 on Google. Learn proven keyword research, on-page optimization, and link building strategies. Real case studies, actionable checklists, and templates you can use immediately. Perfect for beginners and intermediate marketers looking to boost their organic traffic.</p>
-      <div class="detail-features">
-        <h3>What's Inside</h3>
-        <div class="feature-row"><div class="feature-dot"></div><span>Keyword research methodology with tools</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>On-page SEO checklist and optimization guide</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Link building strategies that actually work</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Technical SEO audit guide</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Real case studies with proven results</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Ready-to-use templates and checklists</span></div>
-      </div>
-      <div class="detail-buttons">
-        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
-        <button class="detail-back" onclick="closeDetail('seo')">Back to Products</button>
+
+    <div class="px" data-px="0.008">
+      <div class="sub enter d2">
+        Professional templates, guides, and tools designed to help <b>entrepreneurs launch faster</b>, look better, and convert more visitors into customers. <b>No subscriptions</b>. No fluff. Just results.
       </div>
     </div>
-  </div>
-  
-  <!-- AI Prompt Detail -->
-  <div class="detail" id="detail-prompt">
-    <button class="detail-close" onclick="closeDetail('prompt')">✕</button>
-    <div class="detail-hero"><img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1400&h=700&fit=crop" alt="AI Prompt Mastery"></div>
-    <div class="detail-body">
-      <div class="detail-tag">AI Guide</div>
-      <h1>AI Prompt Mastery</h1>
-      <div class="price">$29 <span style="font-size:18px;color:rgba(255,255,255,0.25);text-decoration:line-through;margin-left:16px;font-weight:300">$49</span></div>
-      <p class="desc">Master the art of AI prompting. This comprehensive guide teaches you how to write prompts that produce professional, consistent results. Covers ChatGPT, Claude, and Midjourney with proven frameworks and real examples. Perfect for creators, marketers, and professionals who want to leverage AI effectively.</p>
-      <div class="detail-features">
-        <h3>What's Included</h3>
-        <div class="feature-row"><div class="feature-dot"></div><span>Prompt engineering frameworks and methodologies</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>50+ ready-to-use templates for various use cases</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>ChatGPT, Claude, and Midjourney specific guides</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Advanced techniques for professional output</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Real-world examples with before/after comparisons</span></div>
-        <div class="feature-row"><div class="feature-dot"></div><span>Free updates for life as AI evolves</span></div>
-      </div>
-      <div class="detail-buttons">
-        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
-        <button class="detail-back" onclick="closeDetail('prompt')">Back to Products</button>
+
+    <div class="px" data-px="0.004">
+      <div class="ctarow enter d3">
+        <a href="#products" class="cta"><span class="arrow">→</span> Explore Collection</a>
+        <button class="demo" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+          <span class="ring"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M13 7.134a1 1 0 010 .732L1 15.268A1 1 0 010 14.536V1.464a1 1 0 011-.732l12 7.402z" fill="currentColor"/></svg></span>
+          See Features<small>What's inside</small>
+        </button>
       </div>
     </div>
+
+    <div class="cardpos enter d4" id="cardpos1">
+      <div class="card">
+        <div class="art" style="background:linear-gradient(135deg,#1a1f35,#2a1f3a)">
+          <div class="livedot"><i></i> LIVE</div>
+          <div class="bubble"><b>Analytics Dashboard</b> — Track your business metrics with real-time data visualization.</div>
+          <div class="booked"><span class="tick">✓</span> Instant Download</div>
+        </div>
+        <div class="body">
+          <div class="kicker">Template</div>
+          <div class="claim">Analytics Dashboard</div>
+        </div>
+        <button class="go2">→</button>
+      </div>
+    </div>
+
+    <div class="cardpos enter d5" id="cardpos2">
+      <div class="card">
+        <div class="art" style="background:linear-gradient(135deg,#1a2535,#1f2a3a)">
+          <div class="livedot"><i></i> LIVE</div>
+          <div class="bubble"><b>SEO Blueprint</b> — Step-by-step guide to ranking #1 on Google.</div>
+          <div class="booked"><span class="tick">✓</span> Instant Download</div>
+        </div>
+        <div class="body">
+          <div class="kicker">Guide</div>
+          <div class="claim">SEO Blueprint</div>
+        </div>
+        <button class="go2">→</button>
+      </div>
+    </div>
+
+    <div class="chip enter d3" id="chip1"><span>Customers</span><b>2,500+</b></div>
+    <div class="chip enter d4" id="chip2"><span>Rating</span><b>4.9 ★</b></div>
+
+    <div class="discover enter d5">Scroll to explore</div>
+
+    <div class="foot enter d5">
+      <span><i>✓</i> No credit card</span>
+      <span><i>✓</i> Instant download</span>
+      <span><i>✓</i> Lifetime access</span>
+    </div>
   </div>
-  
-  <script>
-    // Three.js Background
-    const canvas = document.getElementById('bg-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 30;
-    
-    // Particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const count = 2000;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-    for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 120;
-      colors[i] = Math.random() * 0.3 + 0.7;
-    }
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    const particlesMaterial = new THREE.PointsMaterial({ size: 0.08, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-    
-    // Rings
-    const rings = [];
-    for (let i = 0; i < 6; i++) {
-      const ringGeometry = new THREE.TorusGeometry(8 + i * 4, 0.02, 16, 100);
-      const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xc9a96e, transparent: true, opacity: 0.08 - i * 0.01 });
-      const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-      ring.rotation.x = Math.random() * Math.PI;
-      ring.rotation.y = Math.random() * Math.PI;
-      scene.add(ring);
-      rings.push(ring);
-    }
-    
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    });
-    
-    function animate() {
-      requestAnimationFrame(animate);
-      particles.rotation.y += 0.0003;
-      particles.rotation.x += 0.0001;
-      rings.forEach((ring, i) => {
-        ring.rotation.x += 0.001 * (i + 1) * 0.3;
-        ring.rotation.y += 0.0005 * (i + 1) * 0.3;
-      });
-      camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
-      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
-      camera.lookAt(scene.position);
-      renderer.render(scene, camera);
-    }
-    animate();
-    
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-    
-    function openDetail(id) {
-      document.getElementById('detail-' + id).classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeDetail(id) {
-      document.getElementById('detail-' + id).classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  </script>
+
+  <section class="scroll-section" id="products" style="margin-top:100vh">
+    <div class="section-label">Collection</div>
+    <h2 class="section-title">Built for <strong>entrepreneurs</strong></h2>
+    <div class="products-grid">
+      <div class="product-card" onclick="window.open('https://www.paypal.me/Blackrock352','_blank')">
+        <div class="img"><img src="images/luxurious_dark_workspace_with_go.png" alt="Dashboard"></div>
+        <div class="info">
+          <div class="tag">Dashboard</div>
+          <h3>Analytics Dashboard</h3>
+          <p>Track your business metrics with KPI cards, interactive charts, and real-time data visualization.</p>
+          <div class="price">$29</div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="buy">Buy Now →</a>
+        </div>
+      </div>
+      <div class="product-card" onclick="window.open('https://www.paypal.me/Blackrock352','_blank')">
+        <div class="img"><img src="images/professional_seo_analytics_dashb.png" alt="SEO"></div>
+        <div class="info">
+          <div class="tag">Guide</div>
+          <h3>SEO Blueprint</h3>
+          <p>Step-by-step guide to ranking #1 on Google with proven strategies and real case studies.</p>
+          <div class="price">$39</div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="buy">Buy Now →</a>
+        </div>
+      </div>
+      <div class="product-card" onclick="window.open('https://www.paypal.me/Blackrock352','_blank')">
+        <div class="img"><img src="images/ai_neural_network_visualization_.png" alt="AI"></div>
+        <div class="info">
+          <div class="tag">AI Guide</div>
+          <h3>AI Prompt Mastery</h3>
+          <p>Master AI prompting with 150+ pages, 50+ templates for ChatGPT, Claude, and Midjourney.</p>
+          <div class="price">$29</div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="buy">Buy Now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scroll-section" id="features">
+    <div class="section-label">Why DigitalDropX</div>
+    <h2 class="section-title">Designed to <strong>convert</strong></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Download</h3>
+        <p>Get your templates immediately after purchase. No waiting, no delays. Start building right away.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Professional Quality</h3>
+        <p>Crafted by designers, optimized for results. Every pixel is intentional.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Easy Customization</h3>
+        <p>Change colors, text, images in minutes. No coding required.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to <strong>elevate</strong>?</h2>
+    <p>Join 2,500+ entrepreneurs who trust DigitalDropX.</p>
+    <div class="cta-buttons">
+      <a href="#products" class="cta"><span class="arrow">→</span> Explore Products</a>
+      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="demo">
+        <span class="ring"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M13 7.134a1 1 0 010 .732L1 15.268A1 1 0 010 14.536V1.464a1 1 0 011-.732l12 7.402z" fill="currentColor"/></svg></span>
+        Visit Store<small>PayPal secure</small>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Digital<strong>DropX</strong></div>
+      <p>© 2026 DigitalDropX. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas=document.getElementById('world');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(42,window.innerWidth/window.innerHeight,0.1,100);
+camera.position.set(0,0,10.5);
+
+scene.fog=new THREE.Fog(0x080a14,8,24);
+
+const hemi=new THREE.HemisphereLight(0xc9a96e,0x080a14,0.4);
+scene.add(hemi);
+const dir=new THREE.DirectionalLight(0xfff5e6,0.6);
+dir.position.set(5,8,6);
+scene.add(dir);
+
+const W=new THREE.Color(0x080a14);
+scene.fog=new THREE.Fog(W,8,24);
+
+function tube(r,col,yoff,zoff){
+  const pts=[new THREE.Vector3(-18,yoff-2,zoff),new THREE.Vector3(-8,yoff+1.5,zoff+1),new THREE.Vector3(0,yoff,zoff-0.5),new THREE.Vector3(10,yoff+2,zoff+0.8),new THREE.Vector3(20,yoff-1,zoff)];
+  const curve=new THREE.CatmullRomCurve3(pts);
+  const geo=new THREE.TubeGeometry(curve,64,r,12,false);
+  const mat=new THREE.MeshStandardMaterial({color:col,roughness:0.8,metalness:0.1});
+  return new THREE.Mesh(geo,mat);
+}
+const t1=tube(0.45,0x1a2a1a,-4.5,-2);
+const t2=tube(0.35,0x1a1a2a,-5.5,-4);
+const t3=tube(0.25,0x0a1a0a,-6.5,-7);
+scene.add(t1,t2,t3);
+
+const fuzzGeo=new THREE.BufferGeometry();
+const fCount=12000;
+const fPos=new Float32Array(fCount*3);
+const fCol=new Float32Array(fCount*3);
+for(let i=0;i<fCount;i++){
+  const tube_idx=Math.floor(Math.random()*3);
+  const tube_mesh=[t1,t2,t3][tube_idx];
+  const t=Math.random();
+  const pt=tube_mesh.geometry.attributes.position;
+  const idx=Math.floor(t*(pt.count-1));
+  const x=pt.getX(idx)+(Math.random()-.5)*0.6;
+  const y=pt.getY(idx)+Math.random()*0.4;
+  const z=pt.getZ(idx)+(Math.random()-.5)*0.6;
+  fPos[i*3]=x;fPos[i*3+1]=y;fPos[i*3+2]=z;
+  const hue=0.25+(Math.random()-.5)*0.12;
+  const c=new THREE.Color().setHSL(hue,0.35,0.25+Math.random()*0.15);
+  fCol[i*3]=c.r;fCol[i*3+1]=c.g;fCol[i*3+2]=c.b;
+}
+fuzzGeo.setAttribute('position',new THREE.BufferAttribute(fPos,3));
+fuzzGeo.setAttribute('color',new THREE.BufferAttribute(fCol,3));
+const fuzzMat=new THREE.PointsMaterial({size:0.04,vertexColors:true,transparent:true,opacity:0.7,blending:THREE.AdditiveBlending,depthWrite:false});
+const fuzz=new THREE.Points(fuzzGeo,fuzzMat);
+scene.add(fuzz);
+
+const sparkGeo=new THREE.BufferGeometry();
+const sCount=600;
+const sPos=new Float32Array(sCount*3);
+for(let i=0;i<sCount;i++){
+  sPos[i*3]=(Math.random()-.5)*30;
+  sPos[i*3+1]=Math.random()*8-6;
+  sPos[i*3+2]=(Math.random()-.5)*14;
+}
+sparkGeo.setAttribute('position',new THREE.BufferAttribute(sPos,3));
+const sparkMat=new THREE.PointsMaterial({size:0.06,color:0xc9a96e,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false});
+const sparks=new THREE.Points(sparkGeo,sparkMat);
+scene.add(sparks);
+
+const ringGeo=new THREE.RingGeometry(1.8,1.85,64);
+const ringMat=new THREE.MeshBasicMaterial({color:0xc9a96e,transparent:true,opacity:0.12,side:THREE.DoubleSide});
+const ring1=new THREE.Mesh(ringGeo,ringMat);
+ring1.position.set(3,-2,0);
+ring1.rotation.x=0.3;
+scene.add(ring1);
+const ring2=new THREE.Mesh(ringGeo,ringMat.clone());
+ring2.position.set(3,-2,0);
+ring2.rotation.x=0.5;
+ring2.rotation.y=0.3;
+scene.add(ring2);
+
+let mouseX=0,mouseY=0,hasPointer=false;
+document.addEventListener('pointermove',e=>{
+  mouseX=(e.clientX/window.innerWidth-.5)*2;
+  mouseY=(e.clientY/window.innerHeight-.5)*2;
+  hasPointer=true;
+  document.querySelectorAll('.cta,.demo,nav,nav a').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    el.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+
+const clock=new THREE.Clock();
+let scanProgress=0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clock.elapsedTime;
+  const dt=Math.min(clock.getDelta(),0.05);
+
+  if(!hasPointer){
+    mouseX=Math.sin(t*.22)*.35;
+    mouseY=Math.cos(t*.18)*.2;
+  }
+
+  const targetX=mouseX*1.5;
+  const targetY=-mouseY*0.8;
+  camera.position.x+=(targetX-camera.position.x)*.045;
+  camera.position.y+=(targetY-camera.position.y)*.045;
+  camera.lookAt(0,-1,0);
+
+  fuzz.rotation.y+=.0002;
+  sparks.rotation.y+=.0003;
+  sparks.rotation.x+=.0001;
+
+  ring1.rotation.z+=.002;
+  ring2.rotation.z-=.0015;
+  const pulse=Math.sin(t*2)*.3+.7;
+  ring1.material.opacity=0.08*pulse;
+  ring2.material.opacity=0.06*pulse;
+
+  document.querySelectorAll('.px').forEach((px,i)=>{
+    const f=(i+1)*8;
+    px.style.transform=`translate(${mouseX*-f}px,${mouseY*f}px)`;
+  });
+
+  if(scanProgress<1){
+    scanProgress=Math.min(1,scanProgress+dt*.7);
+  }
+
+  renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+setTimeout(()=>document.body.classList.add('ready'),100);
+setTimeout(()=>document.body.classList.add('settled'),2000);
+
+if(new URLSearchParams(location.search).has('still')){
+  document.body.classList.add('ready','still','settled');
+  scanProgress=1;
+}
+</script>
 </body>
 </html>
