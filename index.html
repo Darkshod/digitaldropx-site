@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DigitalDropX — AI-Powered Digital Products & Templates</title>
+  <meta name="description" content="Premium digital products, templates, and guides powered by AI. Download instantly. SEO-optimized landing pages, dashboards, and business templates." />
+  <meta name="keywords" content="digital products, templates, AI prompts, SEO, landing pages, dashboards, ChatGPT, Claude" />
+  <meta name="author" content="DigitalDropX" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="DigitalDropX — AI-Powered Digital Products" />
+  <meta property="og:description" content="Premium digital products, templates, and guides powered by AI." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://digitaldropx.com" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DigitalDropX — AI-Powered Digital Products" />
+  <meta name="twitter:description" content="Premium digital products, templates, and guides powered by AI." />
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DigitalDropX",
+    "url": "https://digitaldropx.com",
+    "description": "AI-powered digital products and templates",
+    "sameAs": [
+      "https://twitter.com/digitaldropx",
+      "https://linkedin.com/company/digitaldropx"
+    ]
+  }
+  </script>
+  
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0d0d0d;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #10a37f;
+      --accent-hover: #0d8c6d;
+      --surface: #f9fafb;
+      --surface-dark: #0d0d0d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-brand { font-weight: 700; font-size: 20px; color: var(--fg); text-decoration: none; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-cta { background: var(--accent); color: white; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-cta:hover { background: var(--accent-hover); }
+    
+    /* Hero */
+    .hero { padding: 160px 24px 100px; text-align: center; max-width: 900px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 8px 20px; font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .hero h1 { font-size: 64px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 20px; color: var(--muted); max-width: 650px; margin: 0 auto 40px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--fg); color: white; padding: 18px 36px; border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .hero-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .hero-sub { font-size: 14px; color: var(--muted); margin-top: 16px; }
+    
+    /* Social Proof */
+    .social { padding: 60px 24px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .social-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .social p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .logos { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; opacity: 0.5; }
+    .logos span { font-size: 16px; font-weight: 600; color: var(--muted); }
+    
+    /* Features */
+    .features { padding: 100px 24px; max-width: 1200px; margin: 0 auto; }
+    .features h2 { font-size: 40px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+    .features-sub { text-align: center; color: var(--muted); font-size: 18px; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .feature { padding: 32px; border: 1px solid var(--border); border-radius: 12px; transition: border-color 0.2s; }
+    .feature:hover { border-color: var(--accent); }
+    .feature-icon { width: 48px; height: 48px; background: var(--surface); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+    .feature h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .feature p { color: var(--muted); font-size: 15px; }
+    
+    /* Products */
+    .products { padding: 100px 24px; background: var(--surface); }
+    .products h2 { font-size: 40px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+    .products-sub { text-align: center; color: var(--muted); font-size: 18px; margin-bottom: 60px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    .product { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .product-img { height: 200px; background: linear-gradient(135deg, var(--accent), #0d8c6d); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; }
+    .product-body { padding: 24px; }
+    .product-tag { display: inline-block; background: var(--surface); padding: 4px 10px; border-radius: 100px; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .product h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .product p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 24px; font-weight: 700; }
+    .product-price span { font-size: 14px; color: var(--muted); text-decoration: line-through; margin-left: 8px; }
+    .product-cta { background: var(--fg); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; }
+    
+    /* SEO Content */
+    .seo { padding: 100px 24px; max-width: 800px; margin: 0 auto; }
+    .seo h2 { font-size: 32px; font-weight: 700; margin-bottom: 24px; }
+    .seo p { color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+    .seo h3 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; }
+    .seo ul { margin-left: 24px; margin-bottom: 16px; }
+    .seo li { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+    
+    /* Email Capture */
+    .email { padding: 100px 24px; background: var(--surface-dark); color: white; text-align: center; }
+    .email h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+    .email p { color: #9ca3af; font-size: 18px; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .email-form { display: flex; gap: 12px; max-width: 500px; margin: 0 auto; }
+    .email-input { flex: 1; padding: 16px 20px; border-radius: 8px; border: 1px solid #374151; background: #1f2937; color: white; font-size: 16px; }
+    .email-input::placeholder { color: #6b7280; }
+    .email-btn { background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .email-btn:hover { background: var(--accent-hover); }
+    .email-note { font-size: 13px; color: #6b7280; margin-top: 16px; }
+    
+    /* CTA */
+    .cta { padding: 100px 24px; text-align: center; }
+    .cta h2 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+    .cta p { color: var(--muted); font-size: 18px; margin-bottom: 40px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: white; padding: 18px 36px; border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .cta-btn:hover { background: var(--accent-hover); }
+    
+    /* Footer */
+    .footer { padding: 60px 24px; border-top: 1px solid var(--border); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    .footer-brand { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    .footer-brand span { color: var(--accent); }
+    .footer-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .footer h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+    .footer a { display: block; color: var(--muted); text-decoration: none; font-size: 14px; margin-bottom: 8px; }
+    .footer a:hover { color: var(--fg); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .email-form { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Digital<span>DropX</span></a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#free">Free Resources</a>
+      </div>
+      <a href="#products" class="nav-cta">Shop Now</a>
+    </div>
+  </nav>
+  
+  <section class="hero" data-od-id="hero">
+    <span class="hero-badge">AI-Powered Digital Products</span>
+    <h1>Build Your Business with <span>Premium Templates</span></h1>
+    <p>Professional landing pages, dashboards, and business templates designed for entrepreneurs. Download instantly, customize easily, convert faster.</p>
+    <a href="#products" class="hero-cta">Browse Products →</a>
+    <p class="hero-sub">150+ templates • Instant download • Lifetime updates</p>
+  </section>
+  
+  <section class="social">
+    <div class="social-inner">
+      <p>Trusted by 2,500+ entrepreneurs worldwide</p>
+      <div class="logos">
+        <span>Shopify</span>
+        <span>Stripe</span>
+        <span>Vercel</span>
+        <span>Linear</span>
+        <span>Notion</span>
+        <span>Figma</span>
+      </div>
+    </div>
+  </section>
+  
+  <section class="features" id="features" data-od-id="features">
+    <h2>Why DigitalDropX?</h2>
+    <p class="features-sub">Everything you need to launch, grow, and scale your digital business.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Download</h3>
+        <p>Get your templates immediately. No waiting, no shipping. Start building in minutes.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <h3>Professional Design</h3>
+        <p>Crafted by designers, optimized for conversions. Every template is pixel-perfect.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile Responsive</h3>
+        <p>Every template works perfectly on all devices. Desktop, tablet, and mobile ready.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔧</div>
+        <h3>Easy Customization</h3>
+        <p>Change colors, text, images in minutes. No coding required. Works with any editor.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>SEO Optimized</h3>
+        <p>Built with SEO best practices. Schema markup, meta tags, semantic HTML included.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <h3>Lifetime Updates</h3>
+        <p>Buy once, get updates forever. New templates and features added regularly.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="products" id="products" data-od-id="products">
+    <h2>Featured Products</h2>
+    <p class="products-sub">Professional templates to grow your business</p>
+    <div class="products-grid">
+      <article class="product">
+        <div class="product-img">📄</div>
+        <div class="product-body">
+          <span class="product-tag">Best Seller</span>
+          <h3>AI Prompt Mastery</h3>
+          <p>Complete guide to writing prompts that produce professional results. 150+ pages, 50+ templates.</p>
+          <div class="product-footer">
+            <div class="product-price">$29 <span>$49</span></div>
+            <a href="#" class="product-cta">Buy Now</a>
+          </div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="product-img" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">📊</div>
+        <div class="product-body">
+          <span class="product-tag">Popular</span>
+          <h3>SEO Blueprint</h3>
+          <p>Step-by-step guide to ranking #1 on Google. Keyword research, on-page, link building.</p>
+          <div class="product-footer">
+            <div class="product-price">$39 <span>$59</span></div>
+            <a href="#" class="product-cta">Buy Now</a>
+          </div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="product-img" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🚀</div>
+        <div class="product-body">
+          <span class="product-tag">New</span>
+          <h3>Launch Playbook</h3>
+          <p>Complete product launch system. Pre-launch, launch day, post-launch strategies.</p>
+          <div class="product-footer">
+            <div class="product-price">$49 <span>$79</span></div>
+            <a href="#" class="product-cta">Buy Now</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+  
+  <section class="seo" id="about" data-od-id="seo-content">
+    <h2>What is DigitalDropX?</h2>
+    <p>DigitalDropX is your one-stop shop for premium digital products and templates. We create professional, ready-to-use templates that help entrepreneurs, marketers, and businesses launch faster and grow bigger.</p>
+    
+    <h3>Our Mission</h3>
+    <p>We believe everyone deserves access to professional design and business tools. Our templates are crafted by experts, optimized for conversions, and priced affordably so you can focus on what matters — growing your business.</p>
+    
+    <h3>What We Offer</h3>
+    <ul>
+      <li><strong>Landing Page Templates</strong> — High-converting pages for products, services, and lead generation</li>
+      <li><strong>Dashboard Templates</strong> — Analytics and admin panels for your business data</li>
+      <li><strong>Business Document Templates</strong> — Invoices, proposals, contracts, and reports</li>
+      <li><strong>SEO Guides</strong> — Step-by-step tutorials to rank higher on Google</li>
+      <li><strong>AI Prompt Libraries</strong> — Curated prompts for ChatGPT, Claude, and more</li>
+      <li><strong>Social Media Templates</strong> — Instagram, Twitter, LinkedIn post designs</li>
+    </ul>
+    
+    <h3>Why Choose Us?</h3>
+    <p>Every template at DigitalDropX is built with three principles: professional design, easy customization, and conversion optimization. We don't just make things look good — we make them work. Our templates include SEO markup, responsive design, and clear documentation so you can launch with confidence.</p>
+  </section>
+  
+  <section class="email" id="free" data-od-id="email-capture">
+    <h2>Get 5 Free Templates</h2>
+    <p>Join 2,500+ entrepreneurs and get instant access to our free template pack.</p>
+    <form class="email-form" action="#" method="POST">
+      <input type="email" class="email-input" placeholder="Enter your email" required />
+      <button type="submit" class="email-btn">Get Free Pack</button>
+    </form>
+    <p class="email-note">No spam. Unsubscribe anytime. We respect your inbox.</p>
+  </section>
+  
+  <section class="cta" data-od-id="final-cta">
+    <h2>Ready to Build Your Business?</h2>
+    <p>Join 2,500+ entrepreneurs who trust DigitalDropX for their digital products.</p>
+    <a href="#products" class="cta-btn">Browse All Products →</a>
+  </section>
+  
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Digital<span>DropX</span></div>
+        <p class="footer-desc">Premium digital products and templates for entrepreneurs. Build faster, grow bigger.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <a href="#">Landing Pages</a>
+        <a href="#">Dashboards</a>
+        <a href="#">SEO Guides</a>
+        <a href="#">AI Prompts</a>
+        <a href="#">All Templates</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Blog</a>
+        <a href="#">Free Templates</a>
+        <a href="#">Documentation</a>
+        <a href="#">Support</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 DigitalDropX. All rights reserved. Built with ❤️ for entrepreneurs.
+    </div>
+  </footer>
+</body>
+</html>

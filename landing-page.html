@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Prompt Mastery — The Complete Guide</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0d0d0d;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #10a37f;
+      --surface: #f9fafb;
+      --surface-dark: #0d0d0d;
+      --good: #10a37f;
+      --bad: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-brand { font-weight: 600; font-size: 18px; color: var(--fg); text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-cta { background: var(--accent); color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; }
+    
+    .hero { padding: 160px 24px 80px; text-align: center; max-width: 800px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .hero h1 { font-size: 56px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .hero p { font-size: 20px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--fg); color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 500; }
+    .hero-cta:hover { opacity: 0.9; }
+    .hero-price { font-size: 14px; color: var(--muted); margin-top: 16px; }
+    .hero-price span { color: var(--fg); font-weight: 600; text-decoration: line-through; }
+    
+    .social-proof { padding: 60px 24px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .social-proof-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .social-proof p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .logos { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; opacity: 0.6; }
+    .logos span { font-size: 18px; font-weight: 600; color: var(--muted); }
+    
+    .features { padding: 100px 24px; max-width: 1200px; margin: 0 auto; }
+    .features h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+    .features-subtitle { text-align: center; color: var(--muted); font-size: 18px; margin-bottom: 60px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .feature { padding: 32px; border: 1px solid var(--border); border-radius: 12px; }
+    .feature-icon { font-size: 32px; margin-bottom: 16px; }
+    .feature h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .feature p { color: var(--muted); font-size: 15px; }
+    
+    .what-you-learn { padding: 100px 24px; background: var(--surface); }
+    .what-you-learn-inner { max-width: 800px; margin: 0 auto; }
+    .what-you-learn h2 { font-size: 36px; font-weight: 700; margin-bottom: 40px; }
+    .learn-list { display: grid; gap: 16px; }
+    .learn-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px; background: var(--bg); border-radius: 8px; }
+    .learn-check { color: var(--accent); font-size: 20px; }
+    .learn-item h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .learn-item p { font-size: 14px; color: var(--muted); }
+    
+    .pricing { padding: 100px 24px; text-align: center; }
+    .pricing h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+    .pricing-subtitle { color: var(--muted); font-size: 18px; margin-bottom: 40px; }
+    .pricing-card { display: inline-block; background: var(--bg); border: 2px solid var(--fg); border-radius: 16px; padding: 48px; max-width: 400px; width: 100%; }
+    .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .pricing-card .price { font-size: 48px; font-weight: 700; margin: 16px 0; }
+    .pricing-card .price span { font-size: 18px; font-weight: 400; color: var(--muted); }
+    .pricing-card ul { text-align: left; margin: 32px 0; }
+    .pricing-card li { padding: 8px 0; font-size: 15px; border-bottom: 1px solid var(--border); }
+    .pricing-card li:last-child { border: none; }
+    .pricing-cta { display: block; width: 100%; background: var(--fg); color: white; padding: 16px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 500; }
+    
+    .testimonials { padding: 100px 24px; background: var(--surface); }
+    .testimonials h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+    .testimonial { background: var(--bg); padding: 32px; border-radius: 12px; border: 1px solid var(--border); }
+    .testimonial p { font-size: 15px; margin-bottom: 16px; }
+    .testimonial-author { font-weight: 600; font-size: 14px; }
+    .testimonial-role { color: var(--muted); font-size: 13px; }
+    
+    .footer { padding: 60px 24px; border-top: 1px solid var(--border); text-align: center; }
+    .footer p { color: var(--muted); font-size: 14px; }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">AI Prompt Mastery</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#learn">What You'll Learn</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Reviews</a>
+      </div>
+      <a href="#pricing" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+  
+  <section class="hero" data-od-id="hero">
+    <span class="hero-badge">New Release — 2026 Edition</span>
+    <h1>Master the Art of AI Prompt Engineering</h1>
+    <p>The complete guide to writing prompts that consistently produce high-quality, professional results from ChatGPT, Claude, and any AI model.</p>
+    <a href="#pricing" class="hero-cta">Get Instant Access →</a>
+    <p class="hero-price"><span>$49</span> $29 — Limited time offer</p>
+  </section>
+  
+  <section class="social-proof">
+    <div class="social-proof-inner">
+      <p>Trusted by 2,500+ professionals at</p>
+      <div class="logos">
+        <span>Google</span>
+        <span>Microsoft</span>
+        <span>Stripe</span>
+        <span>Vercel</span>
+        <span>Linear</span>
+        <span>Notion</span>
+      </div>
+    </div>
+  </section>
+  
+  <section class="features" id="features" data-od-id="features">
+    <h2>Why This Guide?</h2>
+    <p class="features-subtitle">Stop getting mediocre AI results. Start producing professional output every time.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <h3>Precise Frameworks</h3>
+        <p>Proven prompt structures that work across all AI models. No more trial and error.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>10x Faster Output</h3>
+        <p>Generate professional content in minutes, not hours. Includes 50+ ready-to-use templates.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Consistent Quality</h3>
+        <p>Every prompt engineered to produce reliable, high-quality results every single time.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Data-Driven</h3>
+        <p>Based on analysis of 10,000+ successful prompts across multiple industries.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <h3>Universal</h3>
+        <p>Works with ChatGPT, Claude, Gemini, Llama, and any future AI model.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💎</div>
+        <h3>Pro Techniques</h3>
+        <p>Advanced strategies used by AI engineers at top tech companies.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="what-you-learn" id="learn" data-od-id="learn">
+    <div class="what-you-learn-inner">
+      <h2>What You'll Learn</h2>
+      <div class="learn-list">
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>The RACE Framework</h4>
+            <p>A 4-step method for crafting prompts that consistently deliver professional results.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>Chain-of-Thought Prompting</h4>
+            <p>How to make AI think step-by-step for complex reasoning tasks.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>Few-Shot Learning</h4>
+            <p>Teach AI your style with just 2-3 examples instead of hundreds.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>System Prompt Architecture</h4>
+            <p>Build custom AI assistants that maintain context and personality.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>Output Formatting Mastery</h4>
+            <p>Get JSON, tables, lists, and structured data on demand.</p>
+          </div>
+        </div>
+        <div class="learn-item">
+          <span class="learn-check">✓</span>
+          <div>
+            <h4>Error Prevention</h4>
+            <p>Techniques to minimize hallucinations and ensure accuracy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="pricing" id="pricing" data-od-id="pricing">
+    <h2>Get Your Copy Today</h2>
+    <p class="pricing-subtitle">One-time purchase. Lifetime access. Free updates.</p>
+    <div class="pricing-card">
+      <h3>AI Prompt Mastery</h3>
+      <p>Complete Guide + Templates</p>
+      <div class="price">$29 <span>$49</span></div>
+      <ul>
+        <li>✓ 150+ pages of actionable content</li>
+        <li>✓ 50+ copy-paste prompt templates</li>
+        <li>✓ Industry-specific examples</li>
+        <li>✓ Advanced techniques chapter</li>
+        <li>✓ Free lifetime updates</li>
+        <li>✓ 30-day money-back guarantee</li>
+      </ul>
+      <a href="#" class="pricing-cta">Buy Now — Instant Download</a>
+    </div>
+  </section>
+  
+  <section class="testimonials" id="testimonials" data-od-id="testimonials">
+    <h2>What People Are Saying</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p>"This guide transformed how I use AI. I'm now 10x faster at writing marketing copy and the quality is consistently professional."</p>
+        <div class="testimonial-author">Sarah Chen</div>
+        <div class="testimonial-role">Marketing Director, TechCorp</div>
+      </div>
+      <div class="testimonial">
+        <p>"The RACE framework alone is worth the price. I've shared it with my entire team and our AI output quality has skyrocketed."</p>
+        <div class="testimonial-author">Marcus Johnson</div>
+        <div class="testimonial-role">Product Manager, Stripe</div>
+      </div>
+      <div class="testimonial">
+        <p>"Finally, a guide that goes beyond basics. The advanced techniques section is pure gold for anyone using AI professionally."</p>
+        <div class="testimonial-author">Elena Rodriguez</div>
+        <div class="testimonial-role">AI Engineer, Google</div>
+      </div>
+      <div class="testimonial">
+        <p>"I bought this expecting another basic prompt guide. I was wrong. This is a comprehensive system for getting consistent results."</p>
+        <div class="testimonial-author">David Kim</div>
+        <div class="testimonial-role">Founder, AI Startup</div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <p>© 2026 AI Prompt Mastery. All rights reserved. | 30-day money-back guarantee</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Prompt Mastery — Complete Guide to ChatGPT & Claude Prompts</title>
+  <meta name="description" content="Master AI prompt engineering. 150+ pages of proven frameworks, 50+ templates, and advanced techniques for ChatGPT, Claude, and Gemini." />
+  <meta name="keywords" content="AI prompts, ChatGPT prompts, Claude prompts, prompt engineering, AI guide, AI templates" />
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "AI Prompt Mastery",
+    "description": "Complete guide to AI prompt engineering",
+    "brand": { "@type": "Brand", "name": "DigitalDropX" },
+    "offers": {
+      "@type": "Offer",
+      "price": "29",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "847"
+    }
+  }
+  </script>
+  
+  <style>
+    :root { --bg: #ffffff; --fg: #0d0d0d; --muted: #6b7280; --border: #e5e7eb; --accent: #10a37f; --surface: #f9fafb; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-brand { font-weight: 700; font-size: 18px; color: var(--fg); text-decoration: none; }
+    .nav-brand span { color: var(--accent); }
+    .nav-cta { background: var(--accent); color: white; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; }
+    
+    .hero { padding: 160px 24px 100px; text-align: center; max-width: 900px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 8px 20px; font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .hero h1 { font-size: 56px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero p { font-size: 20px; color: var(--muted); max-width: 650px; margin: 0 auto 40px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--fg); color: white; padding: 18px 36px; border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 600; }
+    .hero-price { font-size: 16px; color: var(--muted); margin-top: 16px; }
+    .hero-price span { color: var(--fg); font-weight: 600; text-decoration: line-through; }
+    
+    .rating { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 24px; }
+    .stars { color: #f59e0b; font-size: 18px; }
+    .rating-text { font-size: 14px; color: var(--muted); }
+    
+    .features { padding: 100px 24px; max-width: 1000px; margin: 0 auto; }
+    .features h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 60px; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .feature { display: flex; gap: 16px; }
+    .feature-icon { width: 48px; height: 48px; background: var(--surface); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .feature h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .feature p { color: var(--muted); font-size: 14px; }
+    
+    .what-you-learn { padding: 100px 24px; background: var(--surface); }
+    .what-you-learn h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 60px; }
+    .learn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+    .learn-item { background: var(--bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border); }
+    .learn-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .learn-item p { color: var(--muted); font-size: 14px; }
+    
+    .testimonial { padding: 100px 24px; }
+    .testimonial h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 60px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    .testimonial-card { background: var(--surface); padding: 24px; border-radius: 12px; }
+    .testimonial-stars { color: #f59e0b; margin-bottom: 12px; }
+    .testimonial p { font-size: 14px; margin-bottom: 16px; }
+    .testimonial-author { font-weight: 600; font-size: 14px; }
+    .testimonial-role { color: var(--muted); font-size: 13px; }
+    
+    .pricing { padding: 100px 24px; background: var(--surface); text-align: center; }
+    .pricing h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+    .pricing-sub { color: var(--muted); font-size: 18px; margin-bottom: 40px; }
+    .pricing-card { display: inline-block; background: var(--bg); border: 2px solid var(--fg); border-radius: 16px; padding: 48px; max-width: 400px; width: 100%; }
+    .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .pricing-card .price { font-size: 56px; font-weight: 800; margin: 16px 0; }
+    .pricing-card .price span { font-size: 20px; font-weight: 400; color: var(--muted); text-decoration: line-through; }
+    .pricing-card ul { text-align: left; margin: 32px 0; }
+    .pricing-card li { padding: 10px 0; font-size: 15px; border-bottom: 1px solid var(--border); }
+    .pricing-card li:last-child { border: none; }
+    .pricing-cta { display: block; width: 100%; background: var(--accent); color: white; padding: 16px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600; }
+    .pricing-cta:hover { background: var(--accent-hover); }
+    .pricing-guarantee { font-size: 13px; color: var(--muted); margin-top: 16px; }
+    
+    .faq { padding: 100px 24px; max-width: 800px; margin: 0 auto; }
+    .faq h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-question { width: 100%; padding: 20px 0; background: none; border: none; text-align: left; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 0 20px; color: var(--muted); font-size: 15px; }
+    
+    .footer { padding: 60px 24px; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 14px; }
+    .footer a { color: var(--accent); text-decoration: none; }
+    
+    @media (max-width: 768px) { .hero h1 { font-size: 36px; } .features-grid, .learn-grid, .testimonials-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Digital<span>DropX</span></a>
+      <a href="#pricing" class="nav-cta">Buy Now — $29</a>
+    </div>
+  </nav>
+  
+  <section class="hero" data-od-id="hero">
+    <span class="hero-badge">Best Seller — 847+ Happy Customers</span>
+    <h1>AI Prompt Mastery</h1>
+    <p>The complete guide to writing prompts that consistently produce professional results. Works with ChatGPT, Claude, Gemini, and any AI model.</p>
+    <a href="#pricing" class="hero-cta">Get Instant Access →</a>
+    <p class="hero-price"><span>$49</span> $29 — Limited time offer</p>
+    <div class="rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">4.9/5 from 847 reviews</span>
+    </div>
+  </section>
+  
+  <section class="features" data-od-id="features">
+    <h2>What's Inside</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <div>
+          <h3>150+ Pages of Content</h3>
+          <p>In-depth explanations, real-world examples, and step-by-step tutorials.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📋</div>
+        <div>
+          <h3>50+ Prompt Templates</h3>
+          <p>Copy-paste templates for marketing, coding, writing, analysis, and more.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🧠</div>
+        <div>
+          <h3>Advanced Techniques</h3>
+          <p>Chain-of-thought, few-shot learning, system prompts, and more.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <div>
+          <h3>Industry Examples</h3>
+          <p>Real prompts from marketing, sales, development, and creative fields.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <h3>Works Everywhere</h3>
+          <p>ChatGPT, Claude, Gemini, Llama, and any future AI model.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💎</div>
+        <div>
+          <h3>Lifetime Updates</h3>
+          <p>Buy once, get updates forever. New content added regularly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="what-you-learn" data-od-id="learn">
+    <h2>What You'll Learn</h2>
+    <div class="learn-grid">
+      <div class="learn-item">
+        <h3>🎯 The RACE Framework</h3>
+        <p>A 4-step method for crafting prompts that consistently deliver professional results.</p>
+      </div>
+      <div class="learn-item">
+        <h3>🧠 Chain-of-Thought Prompting</h3>
+        <p>Make AI think step-by-step for complex reasoning tasks.</p>
+      </div>
+      <div class="learn-item">
+        <h3>📝 Few-Shot Learning</h3>
+        <p>Teach AI your style with just 2-3 examples instead of hundreds.</p>
+      </div>
+      <div class="learn-item">
+        <h3>⚙️ System Prompt Architecture</h3>
+        <p>Build custom AI assistants that maintain context and personality.</p>
+      </div>
+      <div class="learn-item">
+        <h3>📊 Output Formatting</h3>
+        <p>Get JSON, tables, lists, and structured data on demand.</p>
+      </div>
+      <div class="learn-item">
+        <h3>🔒 Error Prevention</h3>
+        <p>Techniques to minimize hallucinations and ensure accuracy.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="testimonial" data-od-id="testimonials">
+    <h2>What People Are Saying</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"This guide transformed how I use AI. I'm now 10x faster at writing marketing copy and the quality is consistently professional."</p>
+        <div class="testimonial-author">Sarah Chen</div>
+        <div class="testimonial-role">Marketing Director</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"The RACE framework alone is worth the price. I've shared it with my entire team and our AI output quality has skyrocketed."</p>
+        <div class="testimonial-author">Marcus Johnson</div>
+        <div class="testimonial-role">Product Manager</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Finally, a guide that goes beyond basics. The advanced techniques section is pure gold for anyone using AI professionally."</p>
+        <div class="testimonial-author">Elena Rodriguez</div>
+        <div class="testimonial-role">AI Engineer</div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="pricing" id="pricing" data-od-id="pricing">
+    <h2>Get Your Copy Today</h2>
+    <p class="pricing-sub">One-time purchase. Lifetime access. Free updates.</p>
+    <div class="pricing-card">
+      <h3>AI Prompt Mastery</h3>
+      <p>Complete Guide + Templates</p>
+      <div class="price">$29 <span>$49</span></div>
+      <ul>
+        <li>✓ 150+ pages of actionable content</li>
+        <li>✓ 50+ copy-paste prompt templates</li>
+        <li>✓ Industry-specific examples</li>
+        <li>✓ Advanced techniques chapter</li>
+        <li>✓ Free lifetime updates</li>
+        <li>✓ 30-day money-back guarantee</li>
+      </ul>
+      <a href="#" class="pricing-cta">Buy Now — Instant Download</a>
+      <p class="pricing-guarantee">Secure checkout via Stripe</p>
+    </div>
+  </section>
+  
+  <section class="faq" data-od-id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <button class="faq-question">What format is the guide? <span>+</span></button>
+      <div class="faq-answer">PDF format, downloadable immediately after purchase. Works on any device.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Which AI models does this work with? <span>+</span></button>
+      <div class="faq-answer">ChatGPT, Claude, Gemini, Llama, and any future AI model. The techniques are universal.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Is there a refund policy? <span>+</span></button>
+      <div class="faq-answer">Yes! 30-day money-back guarantee. If you're not satisfied, we'll refund you fully.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Do I get updates? <span>+</span></button>
+      <div class="faq-answer">Yes! Buy once and get lifetime updates. New content added regularly.</div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <p>© 2026 DigitalDropX. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+</body>
+</html>

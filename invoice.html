@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice — DigitalDropX</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0d0d0d;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #10a37f;
+      --surface: #f9fafb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); padding: 40px; max-width: 800px; margin: 0 auto; }
+    
+    .invoice { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 48px; }
+    
+    .header { display: flex; justify-content: space-between; margin-bottom: 48px; }
+    .brand { font-size: 24px; font-weight: 700; }
+    .brand-subtitle { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .invoice-meta { text-align: right; }
+    .invoice-title { font-size: 32px; font-weight: 700; color: var(--accent); }
+    .invoice-number { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    
+    .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .party-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .party-name { font-weight: 600; margin-bottom: 4px; }
+    .party-detail { font-size: 14px; color: var(--muted); }
+    
+    .dates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; padding: 24px; background: var(--surface); border-radius: 8px; }
+    .date-item { text-align: center; }
+    .date-label { font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .date-value { font-weight: 600; }
+    
+    .items { margin-bottom: 48px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 0; border-bottom: 2px solid var(--fg); }
+    td { padding: 16px 0; font-size: 14px; border-bottom: 1px solid var(--border); }
+    .text-right { text-align: right; }
+    
+    .totals { display: flex; justify-content: flex-end; }
+    .totals-table { width: 300px; }
+    .totals-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+    .totals-row.total { border-top: 2px solid var(--fg); padding-top: 12px; margin-top: 8px; font-weight: 700; font-size: 18px; }
+    
+    .payment { margin-top: 48px; padding: 24px; background: var(--surface); border-radius: 8px; }
+    .payment h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .payment p { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    
+    .footer { margin-top: 48px; text-align: center; color: var(--muted); font-size: 13px; }
+    .footer a { color: var(--accent); text-decoration: none; }
+    
+    @media print {
+      body { padding: 0; }
+      .invoice { border: none; border-radius: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice">
+    <header class="header" data-od-id="header">
+      <div>
+        <div class="brand">DigitalDropX</div>
+        <div class="brand-subtitle">AI-Powered Digital Products</div>
+      </div>
+      <div class="invoice-meta">
+        <div class="invoice-title">INVOICE</div>
+        <div class="invoice-number">#INV-2026-0892</div>
+      </div>
+    </header>
+    
+    <div class="parties" data-od-id="parties">
+      <div>
+        <div class="party-label">Bill To</div>
+        <div class="party-name">Ahmed Benali</div>
+        <div class="party-detail">ahmed@example.com</div>
+        <div class="party-detail">Casablanca, Morocco</div>
+      </div>
+      <div>
+        <div class="party-label">From</div>
+        <div class="party-name">DigitalDropX</div>
+        <div class="party-detail">contact@digitaldropx.com</div>
+        <div class="party-detail">digitaldropx.com</div>
+      </div>
+    </div>
+    
+    <div class="dates" data-od-id="dates">
+      <div class="date-item">
+        <div class="date-label">Invoice Date</div>
+        <div class="date-value">Sep 1, 2026</div>
+      </div>
+      <div class="date-item">
+        <div class="date-label">Due Date</div>
+        <div class="date-value">Sep 1, 2026</div>
+      </div>
+      <div class="date-item">
+        <div class="date-label">Status</div>
+        <div class="date-value" style="color: var(--accent);">Paid</div>
+      </div>
+    </div>
+    
+    <div class="items" data-od-id="items">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th class="text-right">Qty</th>
+            <th class="text-right">Unit Price</th>
+            <th class="text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI Prompt Mastery — Complete Guide</td>
+            <td class="text-right">1</td>
+            <td class="text-right">$29.00</td>
+            <td class="text-right">$29.00</td>
+          </tr>
+          <tr>
+            <td>Bonus: 50 Prompt Templates Pack</td>
+            <td class="text-right">1</td>
+            <td class="text-right">$0.00</td>
+            <td class="text-right">$0.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="totals">
+      <div class="totals-table">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <span>$29.00</span>
+        </div>
+        <div class="totals-row">
+          <span>Tax (0%)</span>
+          <span>$0.00</span>
+        </div>
+        <div class="totals-row total">
+          <span>Total</span>
+          <span>$29.00</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="payment" data-od-id="payment">
+      <h3>Payment Details</h3>
+      <p>Payment Method: Stripe (Credit Card)</p>
+      <p>Transaction ID: txn_3Nk4jL2eZvKYlo2C</p>
+      <p>Paid on: Sep 1, 2026 at 14:32 UTC</p>
+    </div>
+    
+    <div class="footer">
+      <p>Thank you for your purchase! Questions? Contact us at <a href="mailto:contact@digitaldropx.com">contact@digitaldropx.com</a></p>
+    </div>
+  </div>
+</body>
+</html>
