@@ -16,19 +16,18 @@
       --border: #e5e5e5;
       --accent: #000000;
       --surface: #ffffff;
-      --surface-hover: #f5f5f5;
       --gold: #c9a96e;
       --gold-light: #f5efe6;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; }
     
-    /* Minimal Nav */
-    .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); z-index: 100; }
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(250,250,250,0.95); backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--border); }
     .nav-inner { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .nav-brand { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+    .nav-brand { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; text-decoration: none; color: var(--fg); }
     .nav-links { display: flex; gap: 40px; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--fg); }
     .nav-cta { background: var(--fg); color: white; padding: 10px 24px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 500; }
     
@@ -39,7 +38,6 @@
     .hero p { font-size: 18px; color: var(--muted); max-width: 500px; line-height: 1.6; margin-bottom: 48px; }
     .hero-cta { display: inline-flex; align-items: center; gap: 12px; background: var(--fg); color: white; padding: 16px 32px; border-radius: 100px; text-decoration: none; font-size: 14px; font-weight: 500; transition: transform 0.2s; }
     .hero-cta:hover { transform: translateY(-2px); }
-    .hero-cta svg { width: 16px; height: 16px; }
     
     /* Products */
     .products { padding: 100px 40px; max-width: 1400px; margin: 0 auto; }
@@ -48,11 +46,12 @@
     .section-title { font-size: 48px; font-weight: 700; letter-spacing: -0.03em; }
     
     .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .product { background: var(--surface); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
-    .product:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-    .product-img { height: 280px; overflow: hidden; }
+    .product { background: var(--surface); border-radius: 16px; overflow: hidden; transition: all 0.3s; cursor: pointer; border: 1px solid var(--border); }
+    .product:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); border-color: var(--gold); }
+    .product-img { height: 280px; overflow: hidden; position: relative; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .product:hover .product-img img { transform: scale(1.05); }
+    .product-badge { position: absolute; top: 16px; right: 16px; background: var(--gold); color: white; padding: 6px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; }
     .product-body { padding: 32px; }
     .product-category { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
     .product h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -78,7 +77,7 @@
     /* Testimonials */
     .testimonials { padding: 120px 40px; max-width: 1400px; margin: 0 auto; }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
-    .testimonial { background: var(--surface); padding: 40px; border-radius: 16px; }
+    .testimonial { background: var(--surface); padding: 40px; border-radius: 16px; border: 1px solid var(--border); }
     .testimonial-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
     .testimonial p { font-size: 15px; line-height: 1.7; margin-bottom: 24px; color: var(--fg); }
     .testimonial-author { display: flex; align-items: center; gap: 12px; }
@@ -102,12 +101,36 @@
     .footer a:hover { color: var(--fg); }
     .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
     
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto; }
+    .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; padding: 60px 20px; }
+    .modal { background: var(--surface); border-radius: 24px; max-width: 800px; width: 100%; overflow: hidden; position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.1); border: none; border-radius: 50%; color: var(--fg); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
+    .modal-close:hover { background: rgba(0,0,0,0.2); }
+    .modal-img { height: 400px; overflow: hidden; }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-body { padding: 48px; }
+    .modal-category { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .modal h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .modal-desc { font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+    .modal-features { margin-bottom: 32px; }
+    .modal-features h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+    .modal-features ul { list-style: none; }
+    .modal-features li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+    .modal-features li::before { content: '✓'; color: var(--gold); font-weight: 600; }
+    .modal-price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border); }
+    .modal-price { font-size: 40px; font-weight: 700; }
+    .modal-buy { background: var(--fg); color: white; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 600; transition: transform 0.3s; }
+    .modal-buy:hover { transform: translateY(-2px); }
+    
     @media (max-width: 768px) {
       .hero h1 { font-size: 40px; }
       .products-grid { grid-template-columns: 1fr; }
       .features-inner { grid-template-columns: 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .modal-body { padding: 32px; }
+      .modal-img { height: 280px; }
     }
   </style>
 </head>
@@ -129,10 +152,7 @@
     <div class="hero-badge">New Collection 2026</div>
     <h1>Premium templates for modern businesses</h1>
     <p>Professional digital products designed to help you launch faster, look better, and convert more visitors into customers.</p>
-    <a href="#products" class="hero-cta">
-      Explore Products
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-    </a>
+    <a href="#products" class="hero-cta">Explore Products →</a>
   </section>
   
   <section class="products" id="products">
@@ -141,9 +161,10 @@
       <h2 class="section-title">Built for entrepreneurs</h2>
     </div>
     <div class="products-grid">
-      <article class="product">
+      <article class="product" onclick="openModal('dashboard')">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Dashboard Analytics" loading="lazy">
+          <div class="product-badge">Best Seller</div>
         </div>
         <div class="product-body">
           <div class="product-category">Dashboard</div>
@@ -151,11 +172,11 @@
           <p>Professional analytics dashboard template with KPI cards, charts, and data visualization.</p>
           <div class="product-footer">
             <div class="product-price">$29 <span>$49</span></div>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn">Buy Now</a>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn" onclick="event.stopPropagation()">Buy Now</a>
           </div>
         </div>
       </article>
-      <article class="product">
+      <article class="product" onclick="openModal('seo')">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="SEO Blueprint" loading="lazy">
         </div>
@@ -165,11 +186,11 @@
           <p>Step-by-step guide to ranking #1 on Google. Keyword research, on-page, link building.</p>
           <div class="product-footer">
             <div class="product-price">$39 <span>$59</span></div>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn">Buy Now</a>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn" onclick="event.stopPropagation()">Buy Now</a>
           </div>
         </div>
       </article>
-      <article class="product">
+      <article class="product" onclick="openModal('prompt')">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop" alt="AI Prompt Mastery" loading="lazy">
         </div>
@@ -179,7 +200,7 @@
           <p>Complete guide to writing prompts that produce professional results. 150+ pages, 50+ templates.</p>
           <div class="product-footer">
             <div class="product-price">$29 <span>$49</span></div>
-            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn">Buy Now</a>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn" onclick="event.stopPropagation()">Buy Now</a>
           </div>
         </div>
       </article>
@@ -223,7 +244,7 @@
         </div>
       </div>
       <div class="features-image">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Dashboard Preview" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Dashboard Preview" loading="lazy">
       </div>
     </div>
   </section>
@@ -273,10 +294,7 @@
   <section class="cta">
     <h2>Ready to elevate your business?</h2>
     <p>Join 2,500+ entrepreneurs who trust DigitalDropX.</p>
-    <a href="#products" class="cta-btn">
-      Browse Products
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-    </a>
+    <a href="#products" class="cta-btn">Browse Products →</a>
   </section>
   
   <footer class="footer">
@@ -312,6 +330,112 @@
       <span>Built with passion for entrepreneurs</span>
     </div>
   </footer>
+  
+  <!-- Dashboard Modal -->
+  <div class="modal-overlay" id="modal-dashboard">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('dashboard')">✕</button>
+      <div class="modal-img">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop" alt="Analytics Dashboard">
+      </div>
+      <div class="modal-body">
+        <div class="modal-category">Dashboard Template</div>
+        <h2>Analytics Dashboard</h2>
+        <p class="modal-desc">Professional analytics dashboard with KPI cards, interactive charts, and real-time data visualization. Perfect for tracking your business metrics.</p>
+        <div class="modal-features">
+          <h4>What's Included</h4>
+          <ul>
+            <li>Responsive dashboard layout</li>
+            <li>KPI cards with live data</li>
+            <li>Interactive charts and graphs</li>
+            <li>Dark and light mode</li>
+            <li>Fully customizable components</li>
+          </ul>
+        </div>
+        <div class="modal-price-row">
+          <div class="modal-price">$29 <span style="font-size:18px;color:#666;text-decoration:line-through;font-weight:400">$49</span></div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="modal-buy">Purchase Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SEO Modal -->
+  <div class="modal-overlay" id="modal-seo">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('seo')">✕</button>
+      <div class="modal-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop" alt="SEO Blueprint">
+      </div>
+      <div class="modal-body">
+        <div class="modal-category">SEO Guide</div>
+        <h2>SEO Blueprint</h2>
+        <p class="modal-desc">Step-by-step guide to ranking #1 on Google. Learn keyword research, on-page optimization, and link building strategies that actually work.</p>
+        <div class="modal-features">
+          <h4>What's Inside</h4>
+          <ul>
+            <li>Keyword research methodology</li>
+            <li>On-page SEO checklist</li>
+            <li>Link building strategies</li>
+            <li>Technical SEO audit guide</li>
+            <li>Real case studies and examples</li>
+          </ul>
+        </div>
+        <div class="modal-price-row">
+          <div class="modal-price">$39 <span style="font-size:18px;color:#666;text-decoration:line-through;font-weight:400">$59</span></div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="modal-buy">Purchase Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AI Prompt Modal -->
+  <div class="modal-overlay" id="modal-prompt">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('prompt')">✕</button>
+      <div class="modal-img">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop" alt="AI Prompt Mastery">
+      </div>
+      <div class="modal-body">
+        <div class="modal-category">AI Guide</div>
+        <h2>AI Prompt Mastery</h2>
+        <p class="modal-desc">The complete guide to writing prompts that produce professional results. 150+ pages of proven frameworks, 50+ ready-to-use templates.</p>
+        <div class="modal-features">
+          <h4>What's Included</h4>
+          <ul>
+            <li>Prompt engineering frameworks</li>
+            <li>50+ ready-to-use templates</li>
+            <li>ChatGPT, Claude, and Midjourney guides</li>
+            <li>Advanced techniques for professionals</li>
+            <li>Free updates for life</li>
+          </ul>
+        </div>
+        <div class="modal-price-row">
+          <div class="modal-price">$29 <span style="font-size:18px;color:#666;text-decoration:line-through;font-weight:400">$49</span></div>
+          <a href="https://www.paypal.me/Blackrock352" target="_blank" class="modal-buy">Purchase Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function openModal(id) {
+      document.getElementById('modal-' + id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById('modal-' + id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  </script>
   <script src="/analytics.js"></script>
 </body>
 </html>
