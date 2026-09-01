@@ -4,129 +4,170 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DigitalDropX — Premium Digital Products</title>
-  <meta name="description" content="Premium digital products and templates for entrepreneurs." />
+  <meta name="description" content="Premium digital products, templates, and guides for entrepreneurs." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #0c0c0c; color: #fff; }
-    .serif { font-family: 'Cormorant Garamond', serif; }
+    body { font-family: 'Outfit', sans-serif; background: #08080c; color: #fff; overflow-x: hidden; }
+    
+    /* Animated Background */
+    .bg-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s infinite ease-in-out; }
+    .orb-1 { width: 600px; height: 600px; background: #c9a96e; top: -200px; right: -200px; }
+    .orb-2 { width: 500px; height: 500px; background: #4a6cf7; bottom: -150px; left: -150px; animation-delay: -7s; }
+    .orb-3 { width: 400px; height: 400px; background: #c9a96e; top: 50%; left: 50%; animation-delay: -14s; opacity: 0.2; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -30px) scale(1.05); } 66% { transform: translate(-20px, 20px) scale(0.95); } }
+    
+    .content { position: relative; z-index: 1; }
     
     /* Hero */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; background: linear-gradient(180deg, #0c0c0c 0%, #1a1a1a 100%); }
-    .hero-badge { border: 1px solid #c9a96e33; color: #c9a96e; padding: 8px 24px; border-radius: 100px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 40px; }
-    .hero h1 { font-size: 80px; font-weight: 300; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 24px; }
-    .hero h1 span { color: #c9a96e; }
-    .hero p { font-size: 16px; color: #888; max-width: 480px; line-height: 1.8; margin-bottom: 48px; }
-    .hero-cta { display: inline-block; background: #c9a96e; color: #0c0c0c; padding: 16px 40px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201, 169, 110, 0.1); border: 1px solid rgba(201, 169, 110, 0.2); color: #c9a96e; padding: 10px 24px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 40px; backdrop-filter: blur(10px); }
+    .hero h1 { font-size: 80px; font-weight: 200; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 24px; max-width: 700px; }
+    .hero h1 strong { font-weight: 600; background: linear-gradient(135deg, #c9a96e, #f5efe6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 17px; color: #888; max-width: 480px; line-height: 1.8; margin-bottom: 48px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #08080c; padding: 18px 40px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3); }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201, 169, 110, 0.4); }
     
     /* Products */
-    .products { padding: 120px 40px; max-width: 1200px; margin: 0 auto; }
+    .products { padding: 100px 40px; max-width: 1300px; margin: 0 auto; }
     .section-label { font-size: 11px; color: #c9a96e; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; text-align: center; }
-    .section-title { font-size: 48px; font-weight: 300; text-align: center; margin-bottom: 80px; }
+    .section-title { font-size: 52px; font-weight: 200; text-align: center; margin-bottom: 80px; letter-spacing: -0.02em; }
+    .section-title strong { font-weight: 600; }
     
-    .product-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 2px; background: #141414; overflow: hidden; cursor: pointer; }
-    .product-card:hover .product-image img { transform: scale(1.03); }
-    .product-image { height: 500px; overflow: hidden; }
-    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
-    .product-info { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-    .product-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
-    .product-info h2 { font-size: 36px; font-weight: 300; margin-bottom: 16px; line-height: 1.2; }
-    .product-info p { font-size: 15px; color: #888; line-height: 1.8; margin-bottom: 32px; }
-    .product-price { font-size: 28px; font-weight: 300; color: #c9a96e; margin-bottom: 32px; }
-    .product-btn { display: inline-block; border: 1px solid #fff; color: #fff; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; width: fit-content; }
-    .product-btn:hover { background: #fff; color: #0c0c0c; }
-    .product-card.reverse { direction: rtl; }
-    .product-card.reverse > * { direction: ltr; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    
+    /* Glass Card */
+    .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 24px; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative; }
+    .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
+    .glass-card:hover { transform: translateY(-12px) rotateX(2deg); border-color: rgba(201, 169, 110, 0.3); box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(201, 169, 110, 0.1); }
+    
+    .card-image { height: 240px; overflow: hidden; position: relative; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .glass-card:hover .card-image img { transform: scale(1.08); }
+    .card-badge { position: absolute; top: 16px; right: 16px; background: rgba(201, 169, 110, 0.9); color: #08080c; padding: 6px 14px; border-radius: 100px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; backdrop-filter: blur(10px); }
+    
+    .card-body { padding: 32px; }
+    .card-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .card-body h3 { font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+    .card-body p { font-size: 14px; color: #777; line-height: 1.7; margin-bottom: 24px; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .card-price { font-size: 24px; font-weight: 300; color: #c9a96e; }
+    .card-btn { background: rgba(201, 169, 110, 0.1); border: 1px solid rgba(201, 169, 110, 0.3); color: #c9a96e; padding: 10px 24px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; }
+    .card-btn:hover { background: #c9a96e; color: #08080c; }
     
     /* Product Detail */
-    .detail { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #0c0c0c; z-index: 1000; overflow-y: auto; }
+    .detail { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(8,8,12,0.95); z-index: 1000; overflow-y: auto; backdrop-filter: blur(20px); }
     .detail.active { display: block; }
-    .detail-close { position: fixed; top: 32px; right: 32px; width: 48px; height: 48px; background: #1a1a1a; border: 1px solid #333; border-radius: 50%; color: #fff; font-size: 18px; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; }
-    .detail-hero { height: 60vh; min-height: 400px; overflow: hidden; }
+    .detail-close { position: fixed; top: 32px; right: 32px; width: 56px; height: 56px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; color: #fff; font-size: 20px; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: all 0.3s; }
+    .detail-close:hover { background: rgba(255,255,255,0.1); transform: rotate(90deg); }
+    
+    .detail-hero { height: 50vh; min-height: 350px; overflow: hidden; position: relative; }
     .detail-hero img { width: 100%; height: 100%; object-fit: cover; }
-    .detail-body { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
-    .detail-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
-    .detail-body h1 { font-size: 48px; font-weight: 300; margin-bottom: 24px; }
-    .detail-body .price { font-size: 36px; color: #c9a96e; font-weight: 300; margin-bottom: 40px; }
+    .detail-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(transparent, #08080c); }
+    
+    .detail-body { max-width: 800px; margin: -100px auto 0; padding: 0 40px 100px; position: relative; }
+    .detail-tag { font-size: 11px; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+    .detail-body h1 { font-size: 52px; font-weight: 200; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .detail-body .price { font-size: 40px; color: #c9a96e; font-weight: 300; margin-bottom: 32px; }
     .detail-body .desc { font-size: 16px; color: #888; line-height: 1.9; margin-bottom: 48px; }
+    
     .detail-features { margin-bottom: 48px; }
-    .detail-features h3 { font-size: 14px; font-weight: 500; margin-bottom: 24px; letter-spacing: 0.05em; }
-    .detail-features li { list-style: none; padding: 16px 0; border-bottom: 1px solid #1a1a1a; color: #aaa; font-size: 14px; display: flex; align-items: center; gap: 12px; }
-    .detail-features li::before { content: ''; width: 6px; height: 6px; background: #c9a96e; border-radius: 50%; }
-    .detail-buy { display: inline-block; background: #c9a96e; color: #0c0c0c; padding: 18px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .detail-features h3 { font-size: 13px; font-weight: 500; margin-bottom: 24px; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; }
+    .feature-item { display: flex; align-items: center; gap: 16px; padding: 18px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; margin-bottom: 8px; }
+    .feature-dot { width: 8px; height: 8px; background: #c9a96e; border-radius: 50%; flex-shrink: 0; }
+    .feature-item span { font-size: 14px; color: #aaa; }
+    
+    .detail-buy { display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #08080c; padding: 18px 48px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3); }
+    .detail-buy:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201, 169, 110, 0.4); }
     
     /* Footer */
-    .footer { padding: 60px 40px; text-align: center; border-top: 1px solid #1a1a1a; }
+    .footer { padding: 60px 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .footer p { font-size: 12px; color: #555; }
     .footer a { color: #c9a96e; text-decoration: none; }
     
     @media (max-width: 768px) {
       .hero h1 { font-size: 44px; }
-      .product-card { grid-template-columns: 1fr; }
-      .product-card.reverse { direction: ltr; }
-      .product-image { height: 300px; }
-      .product-info { padding: 40px; }
+      .products-grid { grid-template-columns: 1fr; }
       .section-title { font-size: 36px; }
+      .detail-body h1 { font-size: 36px; }
     }
   </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="hero-badge">DigitalDropX</div>
-    <h1 class="serif">Premium digital<br>products for <span>creators</span></h1>
-    <p>Professional templates, guides, and tools designed to help entrepreneurs launch faster and convert more.</p>
-    <a href="#products" class="hero-cta">Explore Collection</a>
-  </section>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
   
-  <section class="products" id="products">
-    <div class="section-label">Collection</div>
-    <h2 class="section-title serif">Curated for success</h2>
+  <div class="content">
+    <section class="hero">
+      <div class="hero-badge">✦ DigitalDropX</div>
+      <h1>Premium digital products for <strong>modern creators</strong></h1>
+      <p>Professional templates, guides, and tools designed to help entrepreneurs launch faster, look better, and convert more visitors into customers.</p>
+      <a href="#products" class="hero-cta">Explore Collection →</a>
+    </section>
     
-    <div class="product-card" onclick="openDetail('dashboard')">
-      <div class="product-image">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Analytics Dashboard">
+    <section class="products" id="products">
+      <div class="section-label">Collection</div>
+      <h2 class="section-title">Built for <strong>entrepreneurs</strong></h2>
+      
+      <div class="products-grid">
+        <div class="glass-card" onclick="openDetail('dashboard')">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Analytics Dashboard" loading="lazy">
+            <div class="card-badge">Best Seller</div>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Dashboard</div>
+            <h3>Analytics Dashboard</h3>
+            <p>Track your business metrics with KPI cards, interactive charts, and real-time data visualization.</p>
+            <div class="card-footer">
+              <div class="card-price">$29</div>
+              <span class="card-btn">View Details</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass-card" onclick="openDetail('seo')">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="SEO Blueprint" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Guide</div>
+            <h3>SEO Blueprint</h3>
+            <p>Step-by-step guide to ranking #1 on Google. Keyword research, on-page, link building.</p>
+            <div class="card-footer">
+              <div class="card-price">$39</div>
+              <span class="card-btn">View Details</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass-card" onclick="openDetail('prompt')">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop" alt="AI Prompt Mastery" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-tag">AI Guide</div>
+            <h3>AI Prompt Mastery</h3>
+            <p>Master AI prompting. 150+ pages, 50+ templates for ChatGPT, Claude, and Midjourney.</p>
+            <div class="card-footer">
+              <div class="card-price">$29</div>
+              <span class="card-btn">View Details</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="product-info">
-        <div class="product-tag">Dashboard</div>
-        <h2 class="serif">Analytics Dashboard</h2>
-        <p>Professional analytics dashboard with KPI cards, interactive charts, and real-time data visualization. Perfect for tracking your business metrics.</p>
-        <div class="product-price">$29</div>
-        <span class="product-btn">View Details</span>
-      </div>
-    </div>
+    </section>
     
-    <div class="product-card reverse" onclick="openDetail('seo')">
-      <div class="product-image">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="SEO Blueprint">
-      </div>
-      <div class="product-info">
-        <div class="product-tag">Guide</div>
-        <h2 class="serif">SEO Blueprint</h2>
-        <p>Step-by-step guide to ranking #1 on Google. Learn keyword research, on-page optimization, and link building strategies that work.</p>
-        <div class="product-price">$39</div>
-        <span class="product-btn">View Details</span>
-      </div>
-    </div>
-    
-    <div class="product-card" onclick="openDetail('prompt')">
-      <div class="product-image">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop" alt="AI Prompt Mastery">
-      </div>
-      <div class="product-info">
-        <div class="product-tag">AI Guide</div>
-        <h2 class="serif">AI Prompt Mastery</h2>
-        <p>The complete guide to writing prompts that produce professional results. 150+ pages, 50+ ready-to-use templates.</p>
-        <div class="product-price">$29</div>
-        <span class="product-btn">View Details</span>
-      </div>
-    </div>
-  </section>
-  
-  <footer class="footer">
-    <p>© 2026 DigitalDropX. All rights reserved.</p>
-  </footer>
+    <footer class="footer">
+      <p>© 2026 DigitalDropX. All rights reserved.</p>
+    </footer>
+  </div>
   
   <!-- Dashboard Detail -->
   <div class="detail" id="detail-dashboard">
@@ -136,19 +177,19 @@
     </div>
     <div class="detail-body">
       <div class="detail-tag">Dashboard Template</div>
-      <h1 class="serif">Analytics Dashboard</h1>
+      <h1>Analytics Dashboard</h1>
       <div class="price">$29 <span style="font-size:18px;color:#555;text-decoration:line-through;margin-left:12px">$49</span></div>
-      <p class="desc">Professional analytics dashboard template designed for modern businesses. Track your KPIs, visualize data with interactive charts, and make data-driven decisions. Fully responsive, easy to customize, and ready to deploy.</p>
-      <ul class="detail-features">
+      <p class="desc">Professional analytics dashboard template designed for modern businesses. Track your KPIs, visualize data with interactive charts, and make data-driven decisions. Fully responsive, easy to customize, and ready to deploy in minutes.</p>
+      <div class="detail-features">
         <h3>What's Included</h3>
-        <li>Responsive dashboard layout</li>
-        <li>Interactive charts and graphs</li>
-        <li>KPI cards with live data</li>
-        <li>Dark and light mode</li>
-        <li>Fully customizable components</li>
-        <li>Documentation included</li>
-      </ul>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now</a>
+        <div class="feature-item"><div class="feature-dot"></div><span>Responsive dashboard layout</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Interactive charts and graphs</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>KPI cards with live data</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Dark and light mode</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Fully customizable components</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Documentation included</span></div>
+      </div>
+      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
     </div>
   </div>
   
@@ -160,19 +201,19 @@
     </div>
     <div class="detail-body">
       <div class="detail-tag">SEO Guide</div>
-      <h1 class="serif">SEO Blueprint</h1>
+      <h1>SEO Blueprint</h1>
       <div class="price">$39 <span style="font-size:18px;color:#555;text-decoration:line-through;margin-left:12px">$59</span></div>
       <p class="desc">The complete roadmap to ranking #1 on Google. Learn proven keyword research, on-page optimization, and link building strategies. Real case studies, actionable checklists, and templates you can use immediately.</p>
-      <ul class="detail-features">
+      <div class="detail-features">
         <h3>What's Inside</h3>
-        <li>Keyword research methodology</li>
-        <li>On-page SEO checklist</li>
-        <li>Link building strategies</li>
-        <li>Technical SEO audit guide</li>
-        <li>Real case studies</li>
-        <li>Ready-to-use templates</li>
-      </ul>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now</a>
+        <div class="feature-item"><div class="feature-dot"></div><span>Keyword research methodology</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>On-page SEO checklist</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Link building strategies</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Technical SEO audit guide</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Real case studies</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Ready-to-use templates</span></div>
+      </div>
+      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
     </div>
   </div>
   
@@ -184,19 +225,19 @@
     </div>
     <div class="detail-body">
       <div class="detail-tag">AI Guide</div>
-      <h1 class="serif">AI Prompt Mastery</h1>
+      <h1>AI Prompt Mastery</h1>
       <div class="price">$29 <span style="font-size:18px;color:#555;text-decoration:line-through;margin-left:12px">$49</span></div>
-      <p class="desc">Master the art of AI prompting. This comprehensive guide teaches you how to write prompts that produce professional, consistent results. Covers ChatGPT, Claude, and Midjourney with proven frameworks.</p>
-      <ul class="detail-features">
+      <p class="desc">Master the art of AI prompting. This comprehensive guide teaches you how to write prompts that produce professional, consistent results. Covers ChatGPT, Claude, and Midjourney with proven frameworks and real examples.</p>
+      <div class="detail-features">
         <h3>What's Included</h3>
-        <li>Prompt engineering frameworks</li>
-        <li>50+ ready-to-use templates</li>
-        <li>ChatGPT, Claude, Midjourney guides</li>
-        <li>Advanced techniques for professionals</li>
-        <li>Real-world examples</li>
-        <li>Free updates for life</li>
-      </ul>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now</a>
+        <div class="feature-item"><div class="feature-dot"></div><span>Prompt engineering frameworks</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>50+ ready-to-use templates</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>ChatGPT, Claude, Midjourney guides</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Advanced techniques for professionals</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Real-world examples</span></div>
+        <div class="feature-item"><div class="feature-dot"></div><span>Free updates for life</span></div>
+      </div>
+      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
     </div>
   </div>
   
