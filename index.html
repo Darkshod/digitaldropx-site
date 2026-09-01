@@ -13,26 +13,33 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Outfit', sans-serif; background: #050508; color: #fff; overflow-x: hidden; }
-    
-    /* Three.js Canvas */
     #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    
     .content { position: relative; z-index: 1; }
     
     /* Hero */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; position: relative; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(transparent, #050508); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); padding: 12px 28px; border-radius: 100px; font-size: 11px; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 48px; backdrop-filter: blur(20px); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); padding: 12px 28px; border-radius: 100px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 48px; backdrop-filter: blur(20px); }
     .hero-badge span { color: #c9a96e; }
     .hero h1 { font-size: 96px; font-weight: 100; letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 32px; max-width: 900px; }
     .hero h1 em { font-style: normal; font-weight: 600; background: linear-gradient(135deg, #c9a96e 0%, #f5efe6 50%, #c9a96e 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
     @keyframes shimmer { to { background-position: 200% center; } }
     .hero p { font-size: 18px; color: rgba(255,255,255,0.4); max-width: 560px; line-height: 1.9; margin-bottom: 56px; font-weight: 300; }
-    .hero-cta { display: inline-flex; align-items: center; gap: 14px; background: #fff; color: #050508; padding: 20px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 14px; background: #fff; color: #050508; padding: 20px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
     .hero-cta:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 60px rgba(255,255,255,0.15); }
+    .hero-cta-outline { display: inline-flex; align-items: center; gap: 14px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 20px 48px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
+    .hero-cta-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
     .scroll-indicator { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
     .scroll-line { width: 1px; height: 60px; background: linear-gradient(rgba(255,255,255,0.3), transparent); animation: scrollPulse 2s infinite; }
     @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    
+    /* Stats */
+    .stats { padding: 100px 40px; }
+    .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 56px; font-weight: 100; color: #c9a96e; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; }
     
     /* Section Shared */
     .section-label { font-size: 10px; color: #c9a96e; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; text-align: center; }
@@ -41,26 +48,25 @@
     
     /* Products */
     .products { padding: 140px 40px; max-width: 1500px; margin: 0 auto; }
-    
-    /* Product Row */
     .product-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 2px; background: rgba(255,255,255,0.01); border-radius: 32px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; }
     .product-row:hover { border-color: rgba(201, 169, 110, 0.15); transform: translateY(-8px); box-shadow: 0 40px 80px rgba(0,0,0,0.4); }
     .product-row.reverse { direction: rtl; }
     .product-row.reverse > * { direction: ltr; }
-    
     .product-img { height: 520px; overflow: hidden; position: relative; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1); filter: brightness(0.8); }
     .product-row:hover .product-img img { transform: scale(1.06); filter: brightness(1); }
     .product-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.3), transparent); }
-    
     .product-info { padding: 72px; display: flex; flex-direction: column; justify-content: center; }
     .product-tag { font-size: 10px; color: #c9a96e; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; }
     .product-info h2 { font-size: 44px; font-weight: 200; margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.15; }
     .product-info h2 strong { font-weight: 600; }
     .product-info .desc { font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 36px; font-weight: 300; }
     .product-price { font-size: 36px; font-weight: 200; color: #c9a96e; margin-bottom: 40px; }
-    .product-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.4s; width: fit-content; }
-    .product-btn:hover { background: #fff; color: #050508; border-color: #fff; }
+    .product-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .product-btn { display: inline-flex; align-items: center; gap: 12px; background: #fff; color: #050508; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.4s; }
+    .product-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,255,255,0.15); }
+    .product-btn-outline { display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 16px 36px; border-radius: 100px; text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.4s; }
+    .product-btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
     
     /* Features */
     .features { padding: 160px 40px; }
@@ -88,18 +94,21 @@
     .cta h2 { font-size: 72px; font-weight: 100; margin-bottom: 24px; letter-spacing: -0.03em; }
     .cta h2 strong { font-weight: 600; }
     .cta p { font-size: 18px; color: rgba(255,255,255,0.35); margin-bottom: 56px; font-weight: 300; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
     .cta-btn { display: inline-flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #050508; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; box-shadow: 0 12px 48px rgba(201, 169, 110, 0.25); }
     .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(201, 169, 110, 0.35); }
+    .cta-btn-outline { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(201, 169, 110, 0.3); color: #c9a96e; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; }
+    .cta-btn-outline:hover { background: rgba(201, 169, 110, 0.08); }
     
     /* Footer */
     .footer { padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.04); }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .footer-brand { font-size: 20px; font-weight: 200; letter-spacing: -0.01em; }
+    .footer-brand { font-size: 20px; font-weight: 200; }
     .footer-brand strong { font-weight: 600; }
     .footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
     .footer a { color: #c9a96e; text-decoration: none; }
     
-    /* Product Detail Overlay */
+    /* Detail */
     .detail { display: none; position: fixed; inset: 0; background: rgba(5,5,8,0.98); z-index: 1000; overflow-y: auto; backdrop-filter: blur(30px); }
     .detail.active { display: block; }
     .detail-close { position: fixed; top: 40px; right: 40px; width: 60px; height: 60px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; color: #fff; font-size: 22px; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
@@ -118,8 +127,11 @@
     .feature-row:hover { background: rgba(201, 169, 110, 0.03); border-color: rgba(201, 169, 110, 0.08); }
     .feature-dot { width: 8px; height: 8px; background: #c9a96e; border-radius: 50%; flex-shrink: 0; }
     .feature-row span { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; }
+    .detail-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
     .detail-buy { display: inline-flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #c9a96e, #b8943f); color: #050508; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; box-shadow: 0 12px 48px rgba(201, 169, 110, 0.25); }
     .detail-buy:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(201, 169, 110, 0.35); }
+    .detail-back { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 22px 56px; border-radius: 100px; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.5s; cursor: pointer; background: transparent; }
+    .detail-back:hover { background: rgba(255,255,255,0.05); }
     
     @media (max-width: 900px) {
       .hero h1 { font-size: 48px; }
@@ -127,8 +139,8 @@
       .product-row.reverse { direction: ltr; }
       .product-img { height: 320px; }
       .product-info { padding: 48px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .section-title, .cta h2 { font-size: 40px; }
       .detail-body h1 { font-size: 40px; }
     }
@@ -141,11 +153,35 @@
     <section class="hero">
       <div class="hero-badge">✦ <span>DigitalDropX</span></div>
       <h1>Premium digital products for <em>modern creators</em></h1>
-      <p>Professional templates, guides, and tools designed to help entrepreneurs launch faster, look better, and convert more visitors into customers. No subscriptions. No fluff. Just results.</p>
-      <a href="#products" class="hero-cta">Explore Collection →</a>
+      <p>Professional templates, guides, and tools designed to help entrepreneurs launch faster, look better, and convert more visitors into customers. No subscriptions. No fluff. Just results that matter.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="hero-cta">Explore Collection →</a>
+        <a href="#features" class="hero-cta-outline">Learn More</a>
+      </div>
       <div class="scroll-indicator">
         <div class="scroll-line"></div>
         Scroll
+      </div>
+    </section>
+    
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">2,500+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Products Sold</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.9</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Instant Download</div>
+        </div>
       </div>
     </section>
     
@@ -160,9 +196,12 @@
         <div class="product-info">
           <div class="product-tag">Dashboard</div>
           <h2><strong>Analytics</strong> Dashboard</h2>
-          <p class="desc">Track your business metrics with KPI cards, interactive charts, and real-time data visualization. Perfect for making data-driven decisions that grow your business.</p>
+          <p class="desc">Track your business metrics with KPI cards, interactive charts, and real-time data visualization. Perfect for making data-driven decisions that grow your business. Includes dark and light mode, responsive design, and complete documentation.</p>
           <div class="product-price">$29</div>
-          <span class="product-btn">View Details →</span>
+          <div class="product-buttons">
+            <span class="product-btn">View Details →</span>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
         </div>
       </div>
       
@@ -173,9 +212,12 @@
         <div class="product-info">
           <div class="product-tag">Guide</div>
           <h2><strong>SEO</strong> Blueprint</h2>
-          <p class="desc">Step-by-step guide to ranking #1 on Google. Keyword research, on-page optimization, and link building strategies that actually work.</p>
+          <p class="desc">Step-by-step guide to ranking #1 on Google. Keyword research, on-page optimization, and link building strategies that actually work. Real case studies, actionable checklists, and templates you can use immediately.</p>
           <div class="product-price">$39</div>
-          <span class="product-btn">View Details →</span>
+          <div class="product-buttons">
+            <span class="product-btn">View Details →</span>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
         </div>
       </div>
       
@@ -186,37 +228,34 @@
         <div class="product-info">
           <div class="product-tag">AI Guide</div>
           <h2><strong>AI Prompt</strong> Mastery</h2>
-          <p class="desc">Master AI prompting. 150+ pages, 50+ templates for ChatGPT, Claude, and Midjourney. Write prompts that produce professional results every time.</p>
+          <p class="desc">Master AI prompting. 150+ pages, 50+ templates for ChatGPT, Claude, and Midjourney. Write prompts that produce professional results every time. Perfect for creators, marketers, and professionals.</p>
           <div class="product-price">$29</div>
-          <span class="product-btn">View Details →</span>
+          <div class="product-buttons">
+            <span class="product-btn">View Details →</span>
+            <a href="https://www.paypal.me/Blackrock352" target="_blank" class="product-btn-outline" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
         </div>
       </div>
     </section>
     
-    <section class="features">
+    <section class="features" id="features">
       <div class="section-label">Why DigitalDropX</div>
       <h2 class="section-title">Designed to <strong>convert</strong></h2>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
           <h3>Instant Download</h3>
-          <p>Get your templates immediately after purchase. No waiting, no delays. Start building right away.</p>
+          <p>Get your templates immediately after purchase. No waiting, no delays. Start building right away and see results in minutes.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3>Professional Quality</h3>
           <p>Crafted by designers, optimized for results. Every pixel is intentional and every feature serves a purpose.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          </div>
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
           <h3>Easy Customization</h3>
-          <p>Change colors, text, images in minutes. No coding required. Designed for non-technical users.</p>
+          <p>Change colors, text, images in minutes. No coding required. Designed for non-technical users who want professional results.</p>
         </div>
       </div>
     </section>
@@ -253,7 +292,10 @@
     <section class="cta">
       <h2>Ready to <strong>elevate</strong>?</h2>
       <p>Join 2,500+ entrepreneurs who trust DigitalDropX.</p>
-      <a href="#products" class="cta-btn">Explore Products →</a>
+      <div class="cta-buttons">
+        <a href="#products" class="cta-btn">Explore Products →</a>
+        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="cta-btn-outline">Visit Store</a>
+      </div>
     </section>
     
     <footer class="footer">
@@ -282,7 +324,10 @@
         <div class="feature-row"><div class="feature-dot"></div><span>Fully customizable components and colors</span></div>
         <div class="feature-row"><div class="feature-dot"></div><span>Complete documentation and setup guide</span></div>
       </div>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+      <div class="detail-buttons">
+        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+        <button class="detail-back" onclick="closeDetail('dashboard')">Back to Products</button>
+      </div>
     </div>
   </div>
   
@@ -304,7 +349,10 @@
         <div class="feature-row"><div class="feature-dot"></div><span>Real case studies with proven results</span></div>
         <div class="feature-row"><div class="feature-dot"></div><span>Ready-to-use templates and checklists</span></div>
       </div>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+      <div class="detail-buttons">
+        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+        <button class="detail-back" onclick="closeDetail('seo')">Back to Products</button>
+      </div>
     </div>
   </div>
   
@@ -326,55 +374,43 @@
         <div class="feature-row"><div class="feature-dot"></div><span>Real-world examples with before/after comparisons</span></div>
         <div class="feature-row"><div class="feature-dot"></div><span>Free updates for life as AI evolves</span></div>
       </div>
-      <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+      <div class="detail-buttons">
+        <a href="https://www.paypal.me/Blackrock352" target="_blank" class="detail-buy">Purchase Now →</a>
+        <button class="detail-back" onclick="closeDetail('prompt')">Back to Products</button>
+      </div>
     </div>
   </div>
   
   <script>
-    // Three.js Animated Background
+    // Three.js Background
     const canvas = document.getElementById('bg-canvas');
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 30;
     
-    // Create particles
+    // Particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const count = 1500;
+    const count = 2000;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-    
     for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 100;
+      positions[i] = (Math.random() - 0.5) * 120;
       colors[i] = Math.random() * 0.3 + 0.7;
     }
-    
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.08,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
-    
+    const particlesMaterial = new THREE.PointsMaterial({ size: 0.08, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
     
-    // Create floating rings
+    // Rings
     const rings = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       const ringGeometry = new THREE.TorusGeometry(8 + i * 4, 0.02, 16, 100);
-      const ringMaterial = new THREE.MeshBasicMaterial({ 
-        color: 0xc9a96e, 
-        transparent: true, 
-        opacity: 0.08 - i * 0.01 
-      });
+      const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xc9a96e, transparent: true, opacity: 0.08 - i * 0.01 });
       const ring = new THREE.Mesh(ringGeometry, ringMaterial);
       ring.rotation.x = Math.random() * Math.PI;
       ring.rotation.y = Math.random() * Math.PI;
@@ -382,29 +418,23 @@
       rings.push(ring);
     }
     
-    // Mouse tracking
     let mouseX = 0, mouseY = 0;
     document.addEventListener('mousemove', (e) => {
       mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     });
     
-    // Animation
     function animate() {
       requestAnimationFrame(animate);
-      
       particles.rotation.y += 0.0003;
       particles.rotation.x += 0.0001;
-      
       rings.forEach((ring, i) => {
         ring.rotation.x += 0.001 * (i + 1) * 0.3;
         ring.rotation.y += 0.0005 * (i + 1) * 0.3;
       });
-      
       camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
       camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
       camera.lookAt(scene.position);
-      
       renderer.render(scene, camera);
     }
     animate();
@@ -415,7 +445,6 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
     
-    // Detail modals
     function openDetail(id) {
       document.getElementById('detail-' + id).classList.add('active');
       document.body.style.overflow = 'hidden';
